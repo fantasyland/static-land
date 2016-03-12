@@ -1,0 +1,4 @@
+lib
+lib-es
+umd
+examples/*/node_modules

@@ -1,0 +1,86 @@
+{
+  "version": "0.0.0",
+  "description": "An exploration of alternative approach for dealing with Fantasy Land types in JS",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "lib-es",
+    "umd"
+  ],
+  "scripts": {
+    "es": "babel src --out-dir lib-es",
+    "commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
+    "umd": "BABEL_ENV=rollup rollup -c",
+    "umd-min": "uglifyjs -m -c -- umd/fantasyLandStatic.js > umd/fantasyLandStatic.min.js",
+    "build": "rm -rf lib lib-es umd && npm run es && npm run commonjs && npm run umd && npm run umd-min",
+    "nyc": "BABEL_ENV=commonjs nyc --require=babel-register tape test/*.js && nyc report --reporter=text-lcov",
+    "coverage": "npm run nyc > lcov.info",
+    "coveralls": "npm run nyc | coveralls",
+    "tapec": "nodemon --watch test --watch src --exec \"BABEL_ENV=commonjs tape -r babel-register test/*.js | tap-notify | faucet\"",
+    "test": "eslint . && BABEL_ENV=commonjs tape -r babel-register test/*.js | faucet",
+    "preversion": "npm run test && npm run build",
+    "postversion": "git push && git push origin --tags && npm publish"
+  },
+  "keywords": [],
+  "author": "Roman Pominov <rpominov@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "6.6.5",
+    "babel-core": "6.7.2",
+    "babel-eslint": "5.0.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.7.0",
+    "babel-plugin-transform-object-rest-spread": "6.6.5",
+    "babel-preset-es2015": "6.6.0",
+    "babel-preset-es2015-rollup": "1.1.1",
+    "babel-register": "6.7.2",
+    "coveralls": "2.11.8",
+    "eslint": "2.2.0",
+    "fantasy-check": "0.3.2",
+    "fantasy-land": "0.2.1",
+    "faucet": "0.0.1",
+    "nodemon": "1.9.1",
+    "nyc": "6.0.0",
+    "rollup": "0.25.4",
+    "rollup-plugin-babel": "2.4.0",
+    "rollup-plugin-commonjs": "2.2.1",
+    "rollup-plugin-node-resolve": "1.5.0",
+    "tap-notify": "1.0.0",
+    "tape": "4.5.1",
+    "tape-catch": "1.0.4",
+    "transducers-js": "0.4.174",
+    "uglify-js": "2.6.2"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "fantasy-land": ">=0.2.0"
+  },
+  "name": "fantasy-land-static",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpominov/fantasy-land-static.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rpominov/fantasy-land-static/issues"
+  },
+  "homepage": "https://github.com/rpominov/fantasy-land-static#readme",
+  "babel": {
+    "env": {
+      "rollup": {
+        "presets": [
+          "babel-preset-es2015-rollup"
+        ],
+        "plugins": [
+          "transform-object-rest-spread"
+        ]
+      },
+      "commonjs": {
+        "presets": [
+          "babel-preset-es2015"
+        ],
+        "plugins": [
+          "transform-object-rest-spread"
+        ]
+      }
+    }
+  }
+}
