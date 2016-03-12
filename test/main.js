@@ -1,4 +1,5 @@
 import test from 'tape-catch'
+import stuff from '../src/index.js' // eslint-disable-line
 
 
 /* Wraps a group of tests
