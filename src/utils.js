@@ -1,4 +1,4 @@
-export function applyAll(value, ...fns) {
+export function flow(value, ...fns) {
   return fns.reduce((x, fn) => fn(x), value)
 }
 
@@ -10,7 +10,12 @@ function _curry(length, received, fn) {
 }
 
 export function curry(fn) {
-  return _curry(fn.length, [], fn)
+  if (fn.__fnatasyLandStaticCurried__) {
+    return fn
+  }
+  const curried = _curry(fn.length, [], fn)
+  curried.__fnatasyLandStaticCurried__ = true
+  return curried
 }
 
 export const mapObj = curry(

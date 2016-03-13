@@ -1,5 +1,5 @@
 import {curryAll} from './utils'
-import * as derive from './derive'
+import {deriveAll} from './derive'
 
 const Arr = curryAll({
 
@@ -8,7 +8,6 @@ const Arr = curryAll({
       return false
     }
     for (let i = 0; i < a.length; i++) {
-      // here we could use Inner.equals, but we need Inner...
       if (a[i] !== b[i]) {
         return false
       }
@@ -32,24 +31,20 @@ const Arr = curryAll({
     return arr.map(x => fn(x))
   },
 
-  reduce(fn, seed, arr) {
-    // how does it work when seed===undefined?
-    return arr.reduce(fn, seed)
+  sequence(T, arr) {
+    return arr.reduce(T.map2((r, i) => r.concat([i])), T.of([]))
+  },
+
+  toArray(arr) {
+    return arr
   },
 
   chain(fn, arr) {
-    return arr.map(fn).reduce(Arr.concat, [])
-  },
-
-  sequence(T, arr) {
-    const map2 = T.map2 || derive.map2(T)
-    const append = map2((r, i) => r.concat([i]))
-    return arr.reduce(append, T.of([]))
+    return Arr.reduce(Arr.concat, Arr.empty(), arr.map(fn))
   },
 
 })
 
-Arr.map2 = derive.map2(Arr)
-Arr.ap = derive.ap(Arr)
+deriveAll(Arr)
 
 export default Arr
