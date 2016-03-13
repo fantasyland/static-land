@@ -1,7 +1,7 @@
 import {curryAll} from './utils'
 import {deriveAll} from './derive'
 
-const Id = curryAll({
+const Id = deriveAll(curryAll({
 
   equals(idA, idB) {
     return idA === idB
@@ -35,8 +35,6 @@ const Id = curryAll({
     return Id.of(fn(idX))
   },
 
-})
-
-deriveAll(Id)
+}))
 
 export default Id

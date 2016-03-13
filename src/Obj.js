@@ -3,7 +3,9 @@ import Pair from './Pair'
 import Arr from './Arr'
 import {deriveAll} from './derive'
 
-const Obj = curryAll({
+const Obj = deriveAll(curryAll({
+
+  map: mapObj,
 
   equals(objA, objB) {
     const keysA = Object.keys(objA)
@@ -65,9 +67,6 @@ const Obj = curryAll({
     return result
   },
 
-})
-
-Obj.map = mapObj
-deriveAll(Obj)
+}))
 
 export default Obj

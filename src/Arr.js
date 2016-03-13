@@ -1,7 +1,7 @@
 import {curryAll} from './utils'
 import {deriveAll} from './derive'
 
-const Arr = curryAll({
+const Arr = deriveAll(curryAll({
 
   equals(a, b) {
     if (a.length !== b.length) {
@@ -43,8 +43,6 @@ const Arr = curryAll({
     return Arr.reduce(Arr.concat, Arr.empty(), arr.map(fn))
   },
 
-})
-
-deriveAll(Arr)
+}))
 
 export default Arr

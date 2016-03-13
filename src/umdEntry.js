@@ -4,6 +4,9 @@ export {derive}
 import * as utils from './utils'
 export {utils}
 
+import fromProto from './fromProto'
+export {fromProto}
+
 import Arr from './Arr'
 export {Arr}
 

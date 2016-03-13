@@ -1,7 +1,7 @@
 import {curryAll} from './utils'
 import {deriveAll} from './derive'
 
-const Pair = curryAll({
+const Pair = deriveAll(curryAll({
 
   map(fn, pairX) {
     return Pair.create(fn(pairX.first), pairX.second)
@@ -27,8 +27,6 @@ const Pair = curryAll({
     return pairT.second
   },
 
-})
-
-deriveAll(Pair)
+}))
 
 export default Pair

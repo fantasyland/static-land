@@ -43,44 +43,48 @@ export const chain = curry(
 
 export const deriveAll = T => {
 
+  const added = {}
+
   if (T.map2 === undefined && T.ap && T.map) {
-    T.map2 = map2(T)
+    added.map2 = map2(T)
   }
 
   if (T.map3 === undefined && T.ap && T.map) {
-    T.map3 = map3(T)
+    added.map3 = map3(T)
   }
 
   if (T.map === undefined && T.of && T.ap) {
-    T.map = mapViaApplicative(T)
+    added.map = mapViaApplicative(T)
   }
 
   if (T.join === undefined && T.chain) {
-    T.join = join(T)
+    added.join = join(T)
   }
 
   if (T.chain === undefined && T.join) {
-    T.chain = chain(T)
+    added.chain = chain(T)
   }
 
   if (T.map === undefined && T.of && T.chain) {
-    T.map = mapViaMonad(T)
+    added.map = mapViaMonad(T)
   }
 
   if (T.ap === undefined && T.map && T.chain) {
-    T.ap = ap(T)
+    added.ap = ap(T)
   }
 
   if (T.reduce === undefined && T.toArray) {
-    T.reduce = reduce(T)
+    added.reduce = reduce(T)
   }
 
   if (T.toArray === undefined && T.reduce) {
-    T.toArray = toArray(T)
+    added.toArray = toArray(T)
   }
 
   if (T.traverse === undefined && T.map && T.sequence) {
-    T.traverse = traverse(T)
+    added.traverse = traverse(T)
   }
+
+  return {...T, ...added}
 
 }
