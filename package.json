@@ -18,7 +18,8 @@
     "tapec": "nodemon --watch test --watch src --exec \"BABEL_ENV=commonjs tape -r babel-register test/*.js | tap-notify | faucet\"",
     "test": "eslint . && BABEL_ENV=commonjs tape -r babel-register test/*.js | faucet",
     "preversion": "npm run test && npm run build",
-    "postversion": "git push && git push origin --tags && npm publish"
+    "postversion": "git push && git push origin --tags && npm publish",
+    "repl": "BABEL_ENV=commonjs node --require babel-register"
   },
   "keywords": [],
   "author": "Roman Pominov <rpominov@gmail.com>",
