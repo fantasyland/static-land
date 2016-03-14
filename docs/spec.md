@@ -10,9 +10,9 @@ is an object with certain methods. For example a Functor type instance must be a
 that has `.map()` method.
 
 In Static Land a type is just a collection of static functions, and instances
-of a type can be any values, including primitives (Number for instance).
+of a type can be any values, including primitives (Number, Boolean etc.)
 
-For example we can implement an Addition type, that uses Number as it's instances,
+For example we can implement an Addition type, that uses numbers as it's instances,
 and satisfies the Monoid laws:
 
 ```js
@@ -37,6 +37,10 @@ const Addition = {
     share any namespace we don't have problems with name clashes.
   - We can implement many types for same values. For example we can implemet
     two Functors for numbers — Addition and Multiplication.
+  - We can implement types with primitives (Number, Boolean etc.) as values.
+  - We can implemet seamless types. For example we can make a type with
+    arrays as values, and user won't have to wrap/unwrap values to some
+    wrapper class with Fantasy Land methods.
 
 #### Cons
 
@@ -47,7 +51,7 @@ const Addition = {
 
 ## Type
 
-A Static Land type is a JavaScript object with static funtions as values.
+A Static Land type is a JavaScript object with static functions as values.
 'Static' means that functions don't use `this`,
 they are not methods and can be detached from the type object.
 The object is just a container for functions.
