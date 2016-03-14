@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An exploration of alternative approach for dealing with Fantasy Land types in JS",
   "main": "lib/index.js",
   "files": [
@@ -84,7 +84,9 @@
     }
   },
   "nyc": {
-    "require": ["babel-register"],
+    "require": [
+      "babel-register"
+    ],
     "all": true,
     "include": [
       "**/src/**"
