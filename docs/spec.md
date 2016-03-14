@@ -120,9 +120,9 @@ to be implemented and how they can be derived from new methods.
 
 #### Lasw
 
-  1. `S.equals(a, a) === true` (reflexivity)
-  1. `S.equals(a, b) === S.equals(b, a)` (symmetry)
-  1. If `S.equals(a, b)` and `S.equals(b, c)`, then `S.equals(a, c)` (transitivity)
+  1. Reflexivity: `S.equals(a, a) === true` ()
+  1. Symmetry: `S.equals(a, b) === S.equals(b, a)` ()
+  1. Transitivity: if `S.equals(a, b)` and `S.equals(b, c)`, then `S.equals(a, c)`
 
 
 
@@ -134,7 +134,7 @@ to be implemented and how they can be derived from new methods.
 
 #### Lasw
 
-  1. `S.concat(S.concat(a, b), c)` is equivalent to `S.concat(a, S.concat(b, c))` (associativity)
+  1. Associativity: `S.concat(S.concat(a, b), c)` is equivalent to `S.concat(a, S.concat(b, c))`
 
 
 
@@ -148,8 +148,8 @@ Dependencies: Semigroup
 
 #### Laws
 
-  1. `M.concat(a, M.empty())` is equivalent to `a` (right identity)
-  1. `M.concat(M.empty(), a)` is equivalent to `a` (left identity)
+  1. Right identity: `M.concat(a, M.empty())` is equivalent to `a`
+  1. Left identity: `M.concat(M.empty(), a)` is equivalent to `a`
 
 
 
@@ -161,5 +161,5 @@ Dependencies: Semigroup
 
 #### Laws
 
-  1. `F.map(x => x, a)` is equivalent to `a` (identity)
-  1. `F.map(x => f(g(x)), a)` is equivalent to `F.map(f, F.map(g, a))` (composition)
+  1. Identity: `F.map(x => x, a)` is equivalent to `a` ()
+  1. Composition: `F.map(x => f(g(x)), a)` is equivalent to `F.map(f, F.map(g, a))`
