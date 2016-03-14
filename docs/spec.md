@@ -120,7 +120,7 @@ to be implemented and how they can be derived from new methods.
 
   1. `equals :: Setoid s => s → s → Boolean`
 
-#### Lasw
+#### Laws
 
   1. Reflexivity: `S.equals(a, a) === true`
   1. Symmetry: `S.equals(a, b) === S.equals(b, a)`
@@ -134,7 +134,7 @@ to be implemented and how they can be derived from new methods.
 
   1. `concat :: Semigroup s => s → s → s`
 
-#### Lasw
+#### Laws
 
   1. Associativity: `S.concat(S.concat(a, b), c) ≡ S.concat(a, S.concat(b, c))`
 
