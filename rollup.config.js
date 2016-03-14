@@ -4,8 +4,8 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 
 export default {
   entry: 'src/umdEntry.js',
-  dest: 'umd/fantasyLandStatic.js',
+  dest: 'umd/staticLand.js',
   plugins: [ nodeResolve(), commonjs(), babel() ],
   format: 'umd',
-  moduleName: 'FantasyLandStatic',
+  moduleName: 'StaticLand',
 }

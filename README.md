@@ -1,13 +1,13 @@
-# fantasy-land-static [![Build Status](https://travis-ci.org/rpominov/fantasy-land-static.svg?branch=master)](https://travis-ci.org/rpominov/fantasy-land-static) [![Coverage Status](https://coveralls.io/repos/github/rpominov/fantasy-land-static/badge.svg?branch=master)](https://coveralls.io/github/rpominov/fantasy-land-static?branch=master)
+# static-land [![Build Status](https://travis-ci.org/rpominov/static-land.svg?branch=master)](https://travis-ci.org/rpominov/static-land) [![Coverage Status](https://coveralls.io/repos/github/rpominov/static-land/badge.svg?branch=master)](https://coveralls.io/github/rpominov/static-land?branch=master)
 An exploration of alternative approach for dealing with Fantasy Land types in JS
 
 ## Installation
 
 ```
-npm install fantasy-land-static
+npm install static-land
 ```
 
 Also available on https://npmcdn.com to play in JSFiddle etc.:
 
- - https://npmcdn.com/fantasy-land-static/umd/fantasyLandStatic.js
- - https://npmcdn.com/fantasy-land-static/umd/fantasyLandStatic.min.js
+ - https://npmcdn.com/static-land/umd/staticLand.js
+ - https://npmcdn.com/static-land/umd/staticLand.min.js
