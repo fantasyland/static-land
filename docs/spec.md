@@ -91,7 +91,7 @@ For example:
 
 ### Algebra
 
-An algebra is a set of values, a set of operators that it is closed under
+An algebra is a set of values (type instances), a set of operators (type methods) that it is closed under
 and some laws it must obey.
 
 Each Static Land algebra is a separate specification.
