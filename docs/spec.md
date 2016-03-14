@@ -103,16 +103,56 @@ to be implemented and how they can be derived from new methods.
 
 ## Algebras
 
+
+
 ### Setoid
 
 #### Methods
 
-  1. `equals :: S a => a → a → Boolean`
+  1. `equals :: Setoid s => s → s → Boolean`
 
 #### Lasw
 
-  1. `S.equals(a, a) = true` (reflexivity)
-  1. `S.equals(a, b) = S.equals(b, a)` (symmetry)
+  1. `S.equals(a, a) === true` (reflexivity)
+  1. `S.equals(a, b) === S.equals(b, a)` (symmetry)
   1. If `S.equals(a, b)` and `S.equals(b, c)`, then `S.equals(a, c)` (transitivity)
 
 
+
+### Semigroup
+
+#### Methods
+
+  1. `concat :: Semigroup s => s → s → s`
+
+#### Lasw
+
+  1. `S.concat(S.concat(a, b), c)` is equivalent to `S.concat(a, S.concat(b, c))` (associativity)
+
+
+
+### Monoid
+
+Dependencies: Semigroup
+
+#### Methods
+
+  1. `empty :: Monoid m => () → m`
+
+#### Laws
+
+  1. `M.concat(a, M.empty())` is equivalent to `a` (right identity)
+  1. `M.concat(M.empty(), a)` is equivalent to `a` (left identity)
+
+
+
+### Functor
+
+#### Methods
+
+  1. `map :: Functor f => (a → b) → f a → f b`
+
+#### Laws
+
+  1. `F.map(x => x, a)` is equivalent to `a` (identity)
+  1. `F.map(x => f(g(x)), a)` is equivalent to `F.map(f, F.map(g, a))` (composition)
