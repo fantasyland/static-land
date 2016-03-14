@@ -87,6 +87,8 @@ For example:
  - Two promises are equivalent when they yield equivalent values.
  - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
 
+We use `≡` symbol to denote equivalence.
+
 
 ## Algebras
 
@@ -134,7 +136,7 @@ to be implemented and how they can be derived from new methods.
 
 #### Lasw
 
-  1. Associativity: `S.concat(S.concat(a, b), c)` is equivalent to `S.concat(a, S.concat(b, c))`
+  1. Associativity: `S.concat(S.concat(a, b), c) ≡ S.concat(a, S.concat(b, c))`
 
 
 
@@ -148,8 +150,8 @@ Dependencies: Semigroup
 
 #### Laws
 
-  1. Right identity: `M.concat(a, M.empty())` is equivalent to `a`
-  1. Left identity: `M.concat(M.empty(), a)` is equivalent to `a`
+  1. Right identity: `M.concat(a, M.empty()) ≡ a`
+  1. Left identity: `M.concat(M.empty(), a) ≡ a`
 
 
 
@@ -161,5 +163,5 @@ Dependencies: Semigroup
 
 #### Laws
 
-  1. Identity: `F.map(x => x, a)` is equivalent to `a`
-  1. Composition: `F.map(x => f(g(x)), a)` is equivalent to `F.map(f, F.map(g, a))`
+  1. Identity: `F.map(x => x, a) ≡ a`
+  1. Composition: `F.map(x => f(g(x)), a) ≡ F.map(f, F.map(g, a))`
