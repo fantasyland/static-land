@@ -29,8 +29,6 @@ const Addition = {
 }
 ```
 
-### Pros and cons compared to Fantasy Land.
-
 #### Pros
 
   - No name clashes. Since a type is just a collection of functions that don't
