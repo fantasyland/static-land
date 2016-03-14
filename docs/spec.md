@@ -87,7 +87,8 @@ For example:
  - Two promises are equivalent when they yield equivalent values.
  - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
 
-### Algebra
+
+## Algebras
 
 An algebra is a set of values (type instances), a set of operators (type methods) that it is closed under
 and some laws it must obey.
@@ -96,9 +97,6 @@ Each Static Land algebra is a separate specification.
 An algebra may have dependencies on other algebras which must be implemented.
 An algebra may also state other algebra methods which do not need
 to be implemented and how they can be derived from new methods.
-
-
-## Algebras
 
 * [Setoid](#setoid)
 * [Semigroup](#semigroup)
