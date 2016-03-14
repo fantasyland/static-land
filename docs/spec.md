@@ -100,6 +100,21 @@ An algebra may also state other algebra methods which do not need
 to be implemented and how they can be derived from new methods.
 
 
+## Algebras
+
+* [Setoid](#setoid)
+* [Semigroup](#semigroup)
+* [Monoid](#monoid)
+* [Functor](#functor)
+* [Apply](#apply)
+* [Applicative](#applicative)
+* [Foldable](#foldable)
+* [Traversable](#traversable)
+* [Chain](#chain)
+* [Monad](#monad)
+* [Extend](#extend)
+* [Comonad](#comonad)
+
 
 ## Setoid
 
