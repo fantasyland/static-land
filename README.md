@@ -2,7 +2,7 @@
 
 Experimental specification for common algebraic types in JavaScript
 based on [Fantasy Land](https://github.com/fantasyland/fantasy-land).
-Plus some utils and implementations of compliant types.
+Plus some utils and implementations of some compliant types.
 
 ## Installation
 

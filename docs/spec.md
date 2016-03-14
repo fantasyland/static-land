@@ -49,7 +49,9 @@ const Addition = {
     we have to pass types only for `of` and `empty`. In Static Land we have
     to pass types for any generic code.
 
-## Type
+## Terminology
+
+### Type
 
 A Static Land type is a JavaScript object with static functions as values.
 'Static' means that functions don't use `this`,
@@ -73,6 +75,44 @@ const incLifted = MyType.map(x => x + 1)
 incLifted(MyType.of(41)) // MyType(42)
 ```
 
+### Equivalent
 
--------------------------------
-TODO: actuall spec
+An appropriate definition of equivalence for the given value.
+The definition should ensure that the two values can be safely swapped out in
+a program that respects abstractions.
+
+For example:
+
+ - Two lists are equivalent if they are equivalent at all indices.
+ - Two plain old JavaScript objects, interpreted as dictionaries,
+   are equivalent when they are equivalent for all keys.
+ - Two promises are equivalent when they yield equivalent values.
+ - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
+
+### Algebra
+
+An algebra is a set of values, a set of operators that it is closed under
+and some laws it must obey.
+
+Each Static Land algebra is a separate specification.
+An algebra may have dependencies on other algebras which must be implemented.
+An algebra may also state other algebra methods which do not need
+to be implemented and how they can be derived from new methods.
+
+
+
+## Algebras
+
+### Setoid
+
+#### Methods
+
+  1. `equals :: S a => a → a → Boolean`
+
+#### Lasw
+
+  1. `S.equals(a, a) = true` (reflexivity)
+  1. `S.equals(a, b) = S.equals(b, a)` (symmetry)
+  1. If `S.equals(a, b)` and `S.equals(b, c)`, then `S.equals(a, c)` (transitivity)
+
+
