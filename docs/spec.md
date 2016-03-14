@@ -101,11 +101,7 @@ to be implemented and how they can be derived from new methods.
 
 
 
-## Algebras
-
-
-
-### Setoid
+## Setoid
 
 #### Methods
 
@@ -119,7 +115,7 @@ to be implemented and how they can be derived from new methods.
 
 
 
-### Semigroup
+## Semigroup
 
 #### Methods
 
@@ -131,7 +127,7 @@ to be implemented and how they can be derived from new methods.
 
 
 
-### Monoid
+## Monoid
 
 Dependencies: Semigroup
 
@@ -146,7 +142,7 @@ Dependencies: Semigroup
 
 
 
-### Functor
+## Functor
 
 #### Methods
 
