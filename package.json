@@ -13,8 +13,8 @@
     "umd": "BABEL_ENV=rollup rollup -c",
     "umd-min": "uglifyjs -m -c -- umd/fantasyLandStatic.js > umd/fantasyLandStatic.min.js",
     "build": "rm -rf lib lib-es umd && npm run es && npm run commonjs && npm run umd && npm run umd-min",
-    "coverage": "BABEL_ENV=commonjs nyc --all --require=babel-register tape test/*.js && nyc report --reporter=text-lcov > lcov.info",
-    "coveralls": "BABEL_ENV=commonjs nyc --all --require=babel-register tape test/*.js && nyc report --reporter=text-lcov | coveralls",
+    "coverage": "BABEL_ENV=commonjs nyc tape test/*.js && nyc report --reporter=text-lcov > lcov.info",
+    "coveralls": "BABEL_ENV=commonjs nyc tape test/*.js && nyc report --reporter=text-lcov | coveralls",
     "tapec": "nodemon --watch test --watch src --exec \"BABEL_ENV=commonjs tape -r babel-register test/*.js | tap-notify | faucet\"",
     "test": "eslint . && BABEL_ENV=commonjs tape -r babel-register test/*.js | faucet",
     "preversion": "npm run test && npm run build",
@@ -39,7 +39,7 @@
     "fantasy-land": "0.2.1",
     "faucet": "0.0.1",
     "nodemon": "1.9.1",
-    "nyc": "6.0.0",
+    "nyc": "6.1.1",
     "rollup": "0.25.4",
     "rollup-plugin-babel": "2.4.0",
     "rollup-plugin-commonjs": "2.2.1",
@@ -84,6 +84,10 @@
     }
   },
   "nyc": {
-    "include": ["**/src/**"]
+    "require": ["babel-register"],
+    "all": true,
+    "include": [
+      "**/src/**"
+    ]
   }
 }
