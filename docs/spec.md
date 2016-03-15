@@ -88,7 +88,7 @@ In short the declaration above consist of the followind parts:
 
  - `map` — function name.
  - `::` — a separator.
- - `Functor f` — a constraint saying that the type `f` (used in following parts)
+ - `Functor f` — a constraint saying that the type `f` (used in the following parts)
    must be a `Functor`.
  - `=>` — a separator.
  - `(a → b) → f a → f b` — the actual type of the function.
@@ -98,7 +98,7 @@ In short the declaration above consist of the followind parts:
  - `a → b` — a funtion of one argument that takes a value of type `a`
    and returns a value of type `b`.
  - `f a`, `f b` — this means '`f` of `a`'. For example if `f` is `Array` and `a`
-   is `Number` it reads as array of numbers.
+   is `Number` it reads as 'array of numbers'.
 
 If a method called with incorrect types the behaviour is undefined,
 the recommended behaviour is to throw a `TypeError`.
