@@ -47,11 +47,9 @@ const Addition = {
     we have to pass types only for `of` and `empty`. In Static Land we have
     to pass types for any generic code.
 
-## Terminology
+## Type
 
-### Type
-
-A Static Land type is a JavaScript object with static functions as values.
+A type in Static Land is a JavaScript object with static functions as values.
 'Static' means that functions don't use `this`,
 they are not methods and can be detached from the type object.
 The object is just a container for functions.
@@ -73,11 +71,42 @@ const incLifted = MyType.map(x => x + 1)
 incLifted(MyType.of(41)) // MyType(42)
 ```
 
-### Equivalent
+## Type signatures
 
-An appropriate definition of equivalence for the given value.
-The definition should ensure that the two values can be safely swapped out in
-a program that respects abstractions.
+Each method in this spec comes with a type signature, that looks like the following.
+
+```
+map :: Functor f => (a → b) → f a → f b
+```
+
+We use syntax similar to Haskell's. If you're not familiar with it, you can learn about it from
+[Hindley-Milner and Me](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html)
+chapter of a briliant book "Professor Frisby's Mostly Adequate Guide to Functional Programming"
+by [@DrBoolean](https://github.com/DrBoolean).
+
+In short the declaration above consist of the followind parts:
+
+ - `map` — function name.
+ - `::` — a separator.
+ - `Functor f` — a constraint saying that the type `f` (used in following parts)
+   must be a `Functor`.
+ - `=>` — a separator.
+ - `(a → b) → f a → f b` — the actual type of the function.
+   It says that the function takes two arguments of types `a → b` and `f a`,
+   and returns a value of type `f b`.
+ - `a`, `b` — some arbitrary types.
+ - `a → b` — a funtion of one argument that takes a value of type `a`
+   and returns a value of type `b`.
+ - `f a`, `f b` — this means '`f` of `a`'. For example if `f` is `Array` and `a`
+   is `Number` it reads as array of numbers.
+
+If a method called with incorrect types the behaviour is undefined,
+the recommended behaviour is to throw a `TypeError`.
+
+## Equivalence
+
+An appropriate definition of equivalence for the given value should ensure
+that the two values can be safely swapped out in a program that respects abstractions.
 
 For example:
 
@@ -87,7 +116,7 @@ For example:
  - Two promises are equivalent when they yield equivalent values.
  - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
 
-We use `≡` symbol to denote equivalence.
+We use `≡` symbol in laws to denote equivalence.
 
 
 ## Algebras
