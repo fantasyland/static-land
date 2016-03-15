@@ -80,7 +80,7 @@ map :: Functor f => (a → b) → f a → f b
 ```
 
 We use syntax similar to Haskell's. You can learn about it from
-[Hindley-Milner and Me](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html)
+["Hindley-Milner and Me"](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html)
 chapter of a briliant book "Professor Frisby's Mostly Adequate Guide to Functional Programming"
 by [@DrBoolean](https://github.com/DrBoolean).
 
