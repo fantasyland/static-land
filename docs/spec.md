@@ -243,7 +243,7 @@ to be implemented and how they can be derived from new methods.
 
   1. `sequence :: (Traversable t, Applicative f) => F → t (f a) → f (t a)` *
 
-* `F` denotes the type object of the `f` type
+\* `F` denotes the type object of the `f` type
 
 #### Laws
 
