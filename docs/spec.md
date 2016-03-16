@@ -126,6 +126,7 @@ to be implemented and how they can be derived from new methods.
 * [Comonad](#comonad)
 
 
+
 ## Setoid
 
 #### Methods
@@ -177,3 +178,38 @@ Dependencies: Semigroup
 
   1. Identity: `F.map(x => x, a) ≡ a`
   1. Composition: `F.map(x => f(g(x)), a) ≡ F.map(f, F.map(g, a))`
+
+
+
+## Apply
+
+Dependencies: Functor
+
+#### Methods
+
+  1. `ap :: Apply f => f (a → b) → f a → f b`
+
+#### Laws
+
+  1. Composition: `A.ap(A.ap(A.map(f => g => x => f(g(x)), a), u), v) ≡ A.ap(a, A.ap(u, v))`
+
+
+
+## Applicative
+
+Dependencies: Apply
+
+#### Methods
+
+  1. `of :: Applicative f => a → f a`
+
+#### Laws
+
+  1. Identity: `A.ap(A.of(x => x), v) ≡ v`
+  2. Homomorphism: `A.ap(A.of(f), A.of(x)) ≡ A.of(f(x))`
+  3. Interchange: `A.ap(u, a.of(y)) ≡ A.ap(A.of(f => f(y)), u)`
+
+#### Can be derived
+
+  1. Functor's map: `A.map = (f, u) => A.ap(A.of(f), u)`
+
