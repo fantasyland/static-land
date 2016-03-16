@@ -219,3 +219,41 @@ to be implemented and how they can be derived from new methods.
 
   1. Functor's map: `A.map = (f, u) => A.ap(A.of(f), u)`
 
+
+
+## Foldable
+
+#### Methods
+
+  1. `reduce :: Foldable f => (a → b → a) → a → f b → a`
+
+#### Laws
+
+  1. `F.reduce ≡ (f, x, u) => F.toArray(u).reduce(f, x)`
+
+#### Can be derived
+
+  1. toArray: `F.toArray = u => F.reduce((acc, x) => acc.concat([x]), [], u)`
+
+
+
+## Traversable
+
+#### Methods
+
+  1. `sequence :: (Traversable t, Applicative f) => F → t (f a) → f (t a)` *
+
+* `F` denotes the type object of the `f` type
+
+#### Laws
+
+  1. Naturality: `f(T.sequence(A1, u)) ≡ T.sequence(T.map(f, u), A2)` where `f` is a natural transformation from `A1` to `A2`
+  2. Identity: `T.sequence(Id, T.map(Id.of, u)) ≡ Id.of(u)`
+  3. Composition: `T.sequence(ComposeA1A2, T.map(ComposeA1A2.of, u)) ≡ ComposeA1A2.of(A1.map(v => T.sequence(A2, v), T.sequence(A1, u)))` where `ComposeA1A2 = Compose(A1, A2)`
+
+TODO:
+
+  - clarify "natural transformation"
+  - double check it's correct (especially `#3`)
+  - implement `Compose`
+
