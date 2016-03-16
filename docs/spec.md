@@ -155,7 +155,9 @@ to be implemented and how they can be derived from new methods.
 
 ## Monoid
 
-Dependencies: Semigroup
+#### Dependencies
+
+  1. Semigroup
 
 #### Methods
 
@@ -183,7 +185,9 @@ Dependencies: Semigroup
 
 ## Apply
 
-Dependencies: Functor
+#### Dependencies
+
+  1. Functor
 
 #### Methods
 
@@ -197,7 +201,9 @@ Dependencies: Functor
 
 ## Applicative
 
-Dependencies: Apply
+#### Dependencies
+
+  1. Apply
 
 #### Methods
 
