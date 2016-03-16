@@ -83,7 +83,7 @@ We use syntax similar to Haskell's. You can learn about it from
 [Ramda's wiki](https://github.com/ramda/ramda/wiki/Type-Signatures) or from book
 ["Professor Frisby's Mostly Adequate Guide to Functional Programming"](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html)
 
-If a method called with incorrect types the behaviour is undefined,
+If a method called with incorrect types the behaviour is unspecified,
 the recommended behaviour is to throw a `TypeError`.
 
 ## Equivalence
