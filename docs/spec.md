@@ -34,7 +34,7 @@ const Addition = {
   - No name clashes. Since a type is just a collection of functions that don't
     share any namespace we don't have problems with name clashes.
   - We can implement many types for same values. For example we can implemet
-    two Functors for numbers — Addition and Multiplication.
+    two Monoids for numbers — Addition and Multiplication.
   - We can implement types with primitives (Number, Boolean etc.) as values.
   - We can implemet seamless types. For example we can make a type with
     arrays as values, and user won't have to wrap/unwrap values to some
