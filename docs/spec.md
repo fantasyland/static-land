@@ -83,8 +83,17 @@ We use syntax similar to Haskell's. You can learn about it from
 [Ramda's wiki](https://github.com/ramda/ramda/wiki/Type-Signatures) or from book
 ["Professor Frisby's Mostly Adequate Guide to Functional Programming"](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html)
 
+This spec uses the followng extentions to the type signature syntax:
+
+  1. `(a, b) -> c` denotest a not curried function of 2 arguments. Same for 3+ arity.
+  2. An upper case letter denotes the [type object](#type) of the type denoted with same lower case letter.
+     For instance a function with type `F → f → a` can be called as `fn(F, F.of(1))`.
+
 If a method called with incorrect types the behaviour is unspecified,
 the recommended behaviour is to throw a `TypeError`.
+
+Also if a method accepts a function it must call the function according to
+type signature, passing arguments of correct types and not passing any extra arguments.
 
 ## Equivalence
 
@@ -118,12 +127,15 @@ to be implemented and how they can be derived from new methods.
 * [Functor](#functor)
 * [Apply](#apply)
 * [Applicative](#applicative)
-* [Foldable](#foldable)
-* [Traversable](#traversable)
 * [Chain](#chain)
 * [Monad](#monad)
+* [Foldable](#foldable)
+
+<!--
+* [Traversable](#traversable)
 * [Extend](#extend)
 * [Comonad](#comonad)
+-->
 
 
 
@@ -218,6 +230,37 @@ to be implemented and how they can be derived from new methods.
 #### Can be derived
 
   1. Functor's map: `A.map = (f, u) => A.ap(A.of(f), u)`
+
+
+
+## Chain
+
+#### Dependencies
+
+  1. Apply
+
+#### Methods
+
+  1. `chain :: Chain m => (a → m b) → m a → m b`
+
+#### Laws
+
+  1. Associativity: `M.chain(g, M.chain(f, u)) ≡ M.chain(x => M.chain(g, f(x)), u)`
+
+
+
+## Monad
+
+#### Dependencies
+
+  1. Applicative
+  2. Chain
+
+#### Laws
+
+  1. Left identity: `M.chain(f, M.of(a)) ≡ f(a)`
+  2. Fight identity: `M.chain(M.of, u) ≡ u`
+
 
 
 
