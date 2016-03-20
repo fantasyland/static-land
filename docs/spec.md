@@ -260,7 +260,7 @@ to be implemented and how they can be derived from new methods.
 #### Laws
 
   1. Left identity: `M.chain(f, M.of(a)) ≡ f(a)`
-  2. Fight identity: `M.chain(M.of, u) ≡ u`
+  2. Right identity: `M.chain(M.of, u) ≡ u`
 
 
 
