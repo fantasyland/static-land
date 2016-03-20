@@ -86,7 +86,7 @@ We use syntax similar to Haskell's. You can learn about it from
 This spec uses the followng extentions to the type signature syntax:
 
   1. `(a, b) -> c` denotest a not curried function of 2 arguments. Same for 3+ arity.
-  2. An upper case letter denotes the [type object](#type) of the type denoted with same
+  1. An upper case letter denotes the [type object](#type) of the type denoted with same
      lower case letter. For instance a function with type `F → f → a`
      can be called as `fn(F, F.of(1))`.
 
@@ -225,8 +225,8 @@ to be implemented and how they can be derived from new methods.
 #### Laws
 
   1. Identity: `A.ap(A.of(x => x), v) ≡ v`
-  2. Homomorphism: `A.ap(A.of(f), A.of(x)) ≡ A.of(f(x))`
-  3. Interchange: `A.ap(u, a.of(y)) ≡ A.ap(A.of(f => f(y)), u)`
+  1. Homomorphism: `A.ap(A.of(f), A.of(x)) ≡ A.of(f(x))`
+  1. Interchange: `A.ap(u, a.of(y)) ≡ A.ap(A.of(f => f(y)), u)`
 
 #### Can be derived
 
@@ -255,12 +255,12 @@ to be implemented and how they can be derived from new methods.
 #### Dependencies
 
   1. Applicative
-  2. Chain
+  1. Chain
 
 #### Laws
 
   1. Left identity: `M.chain(f, M.of(a)) ≡ f(a)`
-  2. Right identity: `M.chain(M.of, u) ≡ u`
+  1. Right identity: `M.chain(M.of, u) ≡ u`
 
 
 
@@ -290,8 +290,8 @@ to be implemented and how they can be derived from new methods.
 #### Laws
 
   1. Naturality: `f(T.sequence(A1, u)) ≡ T.sequence(T.map(f, u), A2)` where `f` is a natural transformation from `A1` to `A2`
-  2. Identity: `T.sequence(Id, T.map(Id.of, u)) ≡ Id.of(u)`
-  3. Composition: `T.sequence(ComposeA1A2, T.map(ComposeA1A2.of, u)) ≡ ComposeA1A2.of(A1.map(v => T.sequence(A2, v), T.sequence(A1, u)))` where `ComposeA1A2 = Compose(A1, A2)`
+  1. Identity: `T.sequence(Id, T.map(Id.of, u)) ≡ Id.of(u)`
+  1. Composition: `T.sequence(ComposeA1A2, T.map(ComposeA1A1.of, u)) ≡ ComposeA1A1.of(A1.map(v => T.sequence(A2, v), T.sequence(A1, u)))` where `ComposeA1A2 = Compose(A1, A2)`
 
 TODO:
 
