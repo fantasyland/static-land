@@ -86,8 +86,9 @@ We use syntax similar to Haskell's. You can learn about it from
 This spec uses the followng extentions to the type signature syntax:
 
   1. `(a, b) -> c` denotest a not curried function of 2 arguments. Same for 3+ arity.
-  2. An upper case letter denotes the [type object](#type) of the type denoted with same lower case letter.
-     For instance a function with type `F → f → a` can be called as `fn(F, F.of(1))`.
+  2. An upper case letter denotes the [type object](#type) of the type denoted with same
+     lower case letter. For instance a function with type `F → f → a`
+     can be called as `fn(F, F.of(1))`.
 
 If a method called with incorrect types the behaviour is unspecified,
 the recommended behaviour is to throw a `TypeError`.
@@ -113,10 +114,10 @@ We use `≡` symbol in laws to denote equivalence.
 
 ## Algebras
 
-An algebra is a set of values (type instances), a set of operators (type methods) that it is closed under
-and some laws it must obey.
+An algebra is a set of values (type instances), a set of operators
+(type methods) that it is closed under and some laws it must obey.
 
-Each Static Land algebra is a separate specification.
+Each algebra is a separate specification.
 An algebra may have dependencies on other algebras which must be implemented.
 An algebra may also state other algebra methods which do not need
 to be implemented and how they can be derived from new methods.
@@ -284,9 +285,7 @@ to be implemented and how they can be derived from new methods.
 
 #### Methods
 
-  1. `sequence :: (Traversable t, Applicative f) => F → t (f a) → f (t a)` *
-
-\* `F` denotes the type object of the `f` type
+  1. `sequence :: (Traversable t, Applicative f) => F → t (f a) → f (t a)`
 
 #### Laws
 
