@@ -236,7 +236,7 @@ to be implemented and how they can be derived from new methods.
   1. toArray: `F.toArray = u => F.reduce((acc, x) => acc.concat([x]), [], u)`
 
 
-
+<!--
 ## Traversable
 
 #### Methods
@@ -256,4 +256,4 @@ TODO:
   - clarify "natural transformation"
   - double check it's correct (especially `#3`)
   - implement `Compose`
-
+-->
