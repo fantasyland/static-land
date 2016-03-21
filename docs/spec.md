@@ -86,8 +86,8 @@ We use syntax similar to Haskell's. You can learn about it from
 This spec uses the followng extentions to the type signature syntax:
 
   1. `(a, b) -> c` denotest a not curried function of 2 arguments. Same for 3+ arity.
-  1. An upper case letter denotes the [type object](#type) of the type denoted with same
-     lower case letter. For instance a function with type `F → f → a`
+  1. An upper case letter denotes the [type object](#type) of the type denoted with the same
+     letter in lower case. For instance a function with type `F → f → a`
      can be called as `fn(F, F.of(1))`.
 
 If a method called with incorrect types the behaviour is unspecified,
@@ -131,11 +131,11 @@ to be implemented and how they can be derived from new methods.
 * [Chain](#chain)
 * [Monad](#monad)
 * [Foldable](#foldable)
+* [Extend](#extend)
+* [Comonad](#comonad)
 
 <!--
 * [Traversable](#traversable)
-* [Extend](#extend)
-* [Comonad](#comonad)
 -->
 
 
@@ -269,7 +269,7 @@ to be implemented and how they can be derived from new methods.
 
 #### Methods
 
-  1. `reduce :: Foldable f => (a → b → a) → a → f b → a`
+  1. `reduce :: Foldable f => ((a, b) → a) → a → f b → a`
 
 #### Laws
 
@@ -278,6 +278,37 @@ to be implemented and how they can be derived from new methods.
 #### Can be derived
 
   1. toArray: `F.toArray = u => F.reduce((acc, x) => acc.concat([x]), [], u)`
+
+
+
+## Extend
+
+#### Methods
+
+  1. `extend :: Extend e => (e a → b) → e a → e b`
+
+#### Laws
+
+  1. Associativity: `E.extend(f, E.extend(g, w)) ≡ E.extend(_w => f(E.extend(g, _w)), w)`
+
+
+
+## Comonad
+
+#### Dependencies
+
+  1. Functor
+  1. Extend
+
+#### Methods
+
+  1. `extract :: Comonad c => c a → a`
+
+#### Laws
+
+  1. `C.extend(C.extract, w) ≡ w`
+  1. `C.extract(C.extend(f, w)) ≡ f(w)`
+  1. `C.extend(f, w) ≡ C.map(f, C.extend(x => x, w))`
 
 
 <!--
