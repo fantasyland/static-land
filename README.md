@@ -4,6 +4,8 @@ Experimental specification for common algebraic types in JavaScript
 based on [Fantasy Land](https://github.com/fantasyland/fantasy-land).
 Plus some utils and implementations of some compliant types.
 
+[The spec](https://github.com/rpominov/static-land/blob/master/docs/spec.md)
+
 ## Installation
 
 ```
