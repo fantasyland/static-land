@@ -45,18 +45,6 @@ export const deriveAll = T => {
 
   const added = {}
 
-  if (T.map2 === undefined && T.ap && T.map) {
-    added.map2 = map2(T)
-  }
-
-  if (T.map3 === undefined && T.ap && T.map) {
-    added.map3 = map3(T)
-  }
-
-  if (T.map === undefined && T.of && T.ap) {
-    added.map = mapViaApplicative(T)
-  }
-
   if (T.join === undefined && T.chain) {
     added.join = join(T)
   }
@@ -71,6 +59,18 @@ export const deriveAll = T => {
 
   if (T.ap === undefined && T.map && T.chain) {
     added.ap = ap(T)
+  }
+
+  if (T.map2 === undefined && T.ap && T.map) {
+    added.map2 = map2(T)
+  }
+
+  if (T.map3 === undefined && T.ap && T.map) {
+    added.map3 = map3(T)
+  }
+
+  if (T.map === undefined && T.of && T.ap) {
+    added.map = mapViaApplicative(T)
   }
 
   if (T.reduce === undefined && T.toArray) {
