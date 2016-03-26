@@ -2,7 +2,7 @@ import $ from 'fantasy-land'
 import {curryAll} from './utils'
 import {deriveAll} from './derive'
 
-export default function fromProto(Constructor, availableMethods = Object.keys(Constructor.prototype)) {
+export default function fromFLType(Constructor, availableMethods = Object.keys(Constructor.prototype)) {
 
   function available(method) {
     return availableMethods.indexOf(method) !== -1
