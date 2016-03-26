@@ -1,7 +1,6 @@
-import {curryAll} from './utils'
-import {deriveAll} from './derive'
+import fromIncomplete from './fromIncomplete'
 
-const Id = deriveAll(curryAll({
+const Id = fromIncomplete({
 
   equals(idA, idB) {
     return idA === idB
@@ -35,6 +34,6 @@ const Id = deriveAll(curryAll({
     return Id.of(fn(idX))
   },
 
-}))
+})
 
 export default Id

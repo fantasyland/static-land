@@ -1,9 +1,9 @@
-import {curryAll, mapObj, flow} from './utils'
+import {mapObj, flow} from './utils'
 import Pair from './Pair'
 import Arr from './Arr'
-import {deriveAll} from './derive'
+import fromIncomplete from './fromIncomplete'
 
-const Obj = deriveAll(curryAll({
+const Obj = fromIncomplete({
 
   map: mapObj,
 
@@ -67,6 +67,6 @@ const Obj = deriveAll(curryAll({
     return result
   },
 
-}))
+})
 
 export default Obj

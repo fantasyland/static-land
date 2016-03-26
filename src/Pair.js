@@ -1,7 +1,6 @@
-import {curryAll} from './utils'
-import {deriveAll} from './derive'
+import fromIncomplete from './fromIncomplete'
 
-const Pair = deriveAll(curryAll({
+const Pair = fromIncomplete({
 
   map(fn, pairX) {
     return Pair.create(fn(pairX.first), pairX.second)
@@ -27,6 +26,6 @@ const Pair = deriveAll(curryAll({
     return pairT.second
   },
 
-}))
+})
 
 export default Pair

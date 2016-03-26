@@ -1,7 +1,6 @@
-import {curryAll} from './utils'
-import {deriveAll} from './derive'
+import fromIncomplete from './fromIncomplete'
 
-const Arr = deriveAll(curryAll({
+const Arr = fromIncomplete({
 
   equals(a, b) {
     if (a.length !== b.length) {
@@ -43,6 +42,6 @@ const Arr = deriveAll(curryAll({
     return Arr.reduce(Arr.concat, Arr.empty(), arr.map(fn))
   },
 
-}))
+})
 
 export default Arr
