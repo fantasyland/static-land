@@ -2,6 +2,7 @@
   "version": "0.1.2",
   "description": "An exploration of alternative approach for dealing with Fantasy Land types in JS",
   "main": "lib/index.js",
+  "jsnext:main": "lib-es/index.js",
   "files": [
     "lib",
     "lib-es",
