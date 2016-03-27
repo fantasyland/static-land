@@ -103,8 +103,6 @@ obj.foo(1)(2)(3) // 6
 
 
 
-
-
 ### `derive.deriveAll`
 
 `TypeObject → TypeObject`
@@ -112,7 +110,7 @@ obj.foo(1)(2)(3) // 6
 Creates a new type object with additional methods that can be derived from existing ones.
 
 Note: all methods in the given object must be curried
-[as spec requires](https://github.com/rpominov/static-land/blob/master/docs/spec.md#type),
+[as spec requires](spec.md#type),
 which is why we use `curryAll` in the example.
 
 ```js

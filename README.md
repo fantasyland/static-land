@@ -6,8 +6,8 @@ Plus some utils and implementations of some compliant types.
 
 ## Docs
 
- * [Specification](https://github.com/rpominov/static-land/blob/master/docs/spec.md)
- * [API reference](https://github.com/rpominov/static-land/blob/master/docs/API.md)
+ * [Specification](docs/spec.md)
+ * [API reference](docs/API.md)
 
 ## Installation
 
