@@ -67,9 +67,6 @@ arguments, it must return a function that expects missing arguments
 (Use [`curry`](API.md#curry), [`curryAll`](API.md#curryall), or
 [`R.curry`](http://ramdajs.com/docs/#curry) to create curried functions)
 
-
-Don't worry `static-land` package has utils for converting normal functions to curried)
-
 ```js
 const incLifted = MyType.map(x => x + 1)
 incLifted(MyType.of(41)) // MyType(42)
