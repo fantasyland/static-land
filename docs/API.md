@@ -69,7 +69,7 @@ flow(1,
 
 `((a, b, ...) → c) → a → b → ... → c`
 
-Makes function curried.
+Makes a function curried.
 
 ```js
 import {curry} from 'static-land'
@@ -87,7 +87,7 @@ fn(1, 2, 3) // 6
 
 `{k: (a, b, ...) → c} → {k: a → b → ... → c}`
 
-Makes all function in an object curried.
+Makes all functions in an object curried.
 
 ```js
 import {curryAll} from 'static-land'
@@ -110,8 +110,9 @@ obj.foo(1)(2)(3) // 6
 `TypeObject → TypeObject`
 
 Creates a new type object with additional methods that can be derived from existing ones.
-Note: all methods in given object must be curried
-[as spec requires](https://github.com/rpominov/static-land/blob/master/docs/spec.md#type)
+
+Note: all methods in the given object must be curried
+[as spec requires](https://github.com/rpominov/static-land/blob/master/docs/spec.md#type),
 which is why we use `curryAll` in the example.
 
 ```js
