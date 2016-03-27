@@ -114,7 +114,7 @@ We use `≡` symbol in laws to denote equivalence.
 
 ## Algebras
 
-An algebra is a set of values (type instances), a set of operators
+An algebra is a set of values (type instances, and other values), a set of operators
 (type methods) that it is closed under and some laws it must obey.
 
 Each algebra is a separate specification.
