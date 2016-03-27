@@ -92,10 +92,9 @@ This spec uses the followng extentions to the type signature syntax:
      can be called as `fn(F, F.of(1))`.
 
 If a method called with incorrect types the behaviour is unspecified,
-the recommended behaviour is to throw a `TypeError`.
-
-Also if a method accepts a function it must call the function according to
-type signature, passing arguments of correct types and not passing any extra arguments.
+the recommended behaviour is to throw a `TypeError`. Also if a method accepts a function it
+must call the function according to the type signature, passing arguments of correct types
+and not passing any extra arguments.
 
 ## Equivalence
 
