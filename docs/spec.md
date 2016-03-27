@@ -86,7 +86,7 @@ We use syntax similar to Haskell's. You can learn about it from
 
 This spec uses the followng extentions to the type signature syntax:
 
-  1. `(a, b) → c` denotest a not curried function of 2 arguments. Same for 3+ arity.
+  1. `(a, b) → c` denotest a not curried function of 2 arguments. Same for more arguments.
   1. An upper case letter denotes the [type object](#type) of the type denoted with the same
      letter in lower case. For instance a function with type `F → f → a`
      can be called as `fn(F, F.of(1))`.
