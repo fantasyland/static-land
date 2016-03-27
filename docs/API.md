@@ -50,7 +50,7 @@ Id.map(x => x + 41, Id.of(1)) // IdFL(42)
 
 ### `flow`
 
-`(a, a → b, b → c ... e → f) → f`
+`(a, a → b, b → c, ..., e → f) → f`
 
 Applies functions to a value sequentially.
 
