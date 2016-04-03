@@ -17,6 +17,7 @@
   "author": "Roman Pominov <rpominov@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "6.0.2",
     "eslint": "2.2.0",
     "fantasy-check": "0.3.2",
     "fantasy-land": "0.2.1",
