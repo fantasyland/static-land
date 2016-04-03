@@ -19,3 +19,12 @@ Also available on https://npmcdn.com to play in JSFiddle etc.:
 
  - https://npmcdn.com/static-land/umd/staticLand.js
  - https://npmcdn.com/static-land/umd/staticLand.min.js
+
+
+## Development
+
+```
+npm run lobot -- --help
+```
+
+Run [lobot](https://github.com/rpominov/lobot) commands as `npm run lobot -- args...`
