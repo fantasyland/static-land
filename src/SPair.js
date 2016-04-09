@@ -1,13 +1,13 @@
 import fromIncomplete from './fromIncomplete'
 
-const Pair = fromIncomplete({
+const SPair = fromIncomplete({
 
   map(fn, pairX) {
-    return Pair.create(fn(pairX.first), pairX.second)
+    return SPair.create(fn(pairX.first), pairX.second)
   },
 
   sequence(T, pairT) {
-    return T.map(Pair.createInverse(pairT.second), pairT.first)
+    return T.map(SPair.createInverse(pairT.second), pairT.first)
   },
 
   create(first, second) {
@@ -28,4 +28,4 @@ const Pair = fromIncomplete({
 
 })
 
-export default Pair
+export default SPair

@@ -6,7 +6,7 @@ import fromFLType from './fromFLType'
 import fromIncomplete from './fromIncomplete'
 export {flow, curry, curryAll, fromFLType, fromIncomplete}
 
-import Arr from './Arr'
-import Id from './Id'
-import Obj from './Obj'
-export {Arr, Id, Obj}
+import SArray from './SArray'
+import SId from './SId'
+import SObject from './SObject'
+export {SArray, SId, SObject}

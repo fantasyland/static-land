@@ -1,9 +1,9 @@
 import {mapObj, flow} from './utils'
-import Pair from './Pair'
-import Arr from './Arr'
+import SPair from './Pair'
+import SArray from './SArray'
 import fromIncomplete from './fromIncomplete'
 
-const Obj = fromIncomplete({
+const SObject = fromIncomplete({
 
   map: mapObj,
 
@@ -39,34 +39,34 @@ const Obj = fromIncomplete({
 
   sequence(T, objT) {
     return flow(objT,
-      Obj.toPairs,
-      Arr.map(Pair.sequence(T)),
-      Arr.sequence(T),
-      T.map(Obj.fromPairs)
+      SObject.toPairs,
+      SArray.map(SPair.sequence(T)),
+      SArray.sequence(T),
+      T.map(SObject.fromPairs)
     )
   },
 
   ap(objF, objX) {
-    const applyX = pair => Pair.map(fn => fn(objX[Pair.second(pair)]), pair)
+    const applyX = pair => SPair.map(fn => fn(objX[SPair.second(pair)]), pair)
     return flow(objF,
-      Obj.toPairs,
-      Arr.map(applyX),
-      Obj.fromPairs
+      SObject.toPairs,
+      SArray.map(applyX),
+      SObject.fromPairs
     )
   },
 
   toPairs(objX) {
-    return Object.keys(objX).map(key => Pair.create(objX[key], key))
+    return Object.keys(objX).map(key => SPair.create(objX[key], key))
   },
 
   fromPairs(pairs) {
     const result = {}
     pairs.forEach(pair => {
-      result[Pair.second(pair)] = Pair.first(pair)
+      result[SPair.second(pair)] = SPair.first(pair)
     })
     return result
   },
 
 })
 
-export default Obj
+export default SObject

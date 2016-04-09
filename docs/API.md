@@ -133,15 +133,15 @@ TODO
 
 # Types
 
-### Arr
+### SArray
 
 TODO
 
-### Obj
+### SObject
 
 TODO
 
-### Id
+### SId
 
 TODO
 

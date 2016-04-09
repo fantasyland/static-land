@@ -1,6 +1,6 @@
 import fromIncomplete from './fromIncomplete'
 
-const Id = fromIncomplete({
+const SId = fromIncomplete({
 
   equals(idA, idB) {
     return idA === idB
@@ -31,9 +31,9 @@ const Id = fromIncomplete({
   },
 
   extend(fn, idX) {
-    return Id.of(fn(idX))
+    return SId.of(fn(idX))
   },
 
 })
 
-export default Id
+export default SId

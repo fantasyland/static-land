@@ -1,6 +1,6 @@
 import fromIncomplete from './fromIncomplete'
 
-const Arr = fromIncomplete({
+const SArray = fromIncomplete({
 
   equals(a, b) {
     if (a.length !== b.length) {
@@ -39,9 +39,9 @@ const Arr = fromIncomplete({
   },
 
   chain(fn, arr) {
-    return Arr.reduce(Arr.concat, Arr.empty(), arr.map(fn))
+    return SArray.reduce(SArray.concat, SArray.empty(), arr.map(fn))
   },
 
 })
 
-export default Arr
+export default SArray

@@ -21,7 +21,7 @@
     "eslint": "2.2.0",
     "fantasy-check": "0.3.2",
     "fantasy-land": "0.2.1",
-    "lobot": "0.1.9",
+    "lobot": "0.1.10",
     "transducers-js": "0.4.174"
   },
   "dependencies": {},
