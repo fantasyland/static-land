@@ -1,5 +1,5 @@
 import {mapObj, flow} from './utils'
-import SPair from './Pair'
+import SPair from './SPair'
 import SArray from './SArray'
 import fromIncomplete from './fromIncomplete'
 
