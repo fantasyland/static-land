@@ -122,6 +122,10 @@ An algebra may have dependencies on other algebras which must be implemented.
 An algebra may also state other algebra methods which do not need
 to be implemented and how they can be derived from new methods.
 
+If a method can be derived and the type also has a hand written version of that method,
+derived and hand written methods must be equivalent. And if two derived version of a method can
+be created (for instance we can derive `map` using `ap` or `chain`), they must be equivalent.
+
 * [Setoid](#setoid)
 * [Semigroup](#semigroup)
 * [Monoid](#monoid)
