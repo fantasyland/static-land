@@ -252,6 +252,10 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
   1. Associativity: `M.chain(g, M.chain(f, u)) ≡ M.chain(x => M.chain(g, f(x)), u)`
 
+#### Can be derived
+
+  1. Apply's ap: `A.ap = (uf, ux) => A.chain(f => A.map(f, ux), uf)`
+
 
 
 ## Monad
@@ -265,6 +269,10 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
   1. Left identity: `M.chain(f, M.of(a)) ≡ f(a)`
   1. Right identity: `M.chain(M.of, u) ≡ u`
+
+#### Can be derived
+
+  1. Functor's map: `A.map = (f, u) => A.chain(x => A.of(f(x)), u)`
 
 
 
