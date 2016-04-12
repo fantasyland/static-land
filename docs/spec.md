@@ -84,7 +84,7 @@ We use syntax similar to Haskell's. You can learn about it from
 [Ramda's wiki](https://github.com/ramda/ramda/wiki/Type-Signatures) or from book
 ["Professor Frisby's Mostly Adequate Guide to Functional Programming"](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html)
 
-This spec uses the followng extentions to the type signature syntax:
+This spec uses the followng extensions to the type signature syntax:
 
   1. `(a, b) → c` denotest a not curried function of 2 arguments. Same for more arguments.
   1. An upper case letter denotes the [type object](#type) of the type denoted with the same
