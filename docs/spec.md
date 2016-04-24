@@ -230,7 +230,7 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
   1. Identity: `A.ap(A.of(x => x), v) ≡ v`
   1. Homomorphism: `A.ap(A.of(f), A.of(x)) ≡ A.of(f(x))`
-  1. Interchange: `A.ap(u, a.of(y)) ≡ A.ap(A.of(f => f(y)), u)`
+  1. Interchange: `A.ap(u, A.of(y)) ≡ A.ap(A.of(f => f(y)), u)`
 
 #### Can be derived
 
