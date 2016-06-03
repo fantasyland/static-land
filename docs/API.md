@@ -1,37 +1,5 @@
 # Utils
 
-### `fromIncomplete`
-
-`IncompleteTypeObject → TypeObject`
-
-Makes methods curried and adds methods that can be derived from existing ones.
-Uses [curryAll](#curryall) and [derive.deriveAll](#derivederiveall) under the hood,
-you can use these function if you want only curry or only derived methods.
-
-```js
-import {fromIncomplete} from 'static-land'
-
-const Type = fromIncomplete({
-
-  of(x) {
-    ...
-  },
-
-  chain(fn, t) {
-    ...
-  },
-
-})
-
-// Derived methods for free
-Type.map
-Type.ap
-
-// All methods are curried
-Type.chain(fn)(t)
-Type.map(fn)(t)
-```
-
 ### `fromFLType`
 
 `(FLType[, listOfMethodsThatShouldBeGenerated]) → TypeObject`
@@ -65,42 +33,6 @@ flow(1,
 ```
 
 
-### `curry`
-
-`((a, b, ...) → c) → a → b → ... → c`
-
-Makes a function curried.
-
-```js
-import {curry} from 'static-land'
-
-const fn = curry((a, b, c) => a + b + c)
-
-fn(1)(2)(3) // 6
-fn(1, 2)(3) // 6
-fn(1)(2, 3) // 6
-fn(1, 2, 3) // 6
-```
-
-
-### `curryAll`
-
-`{k: (a, b, ...) → c} → {k: a → b → ... → c}`
-
-Makes all functions in an object curried.
-
-```js
-import {curryAll} from 'static-land'
-
-const obj = curryAll({
-  foo(a, b, c) {
-    return a + b + c
-  },
-})
-
-obj.foo(1)(2)(3) // 6
-```
-
 
 
 ### `derive.deriveAll`
@@ -109,18 +41,13 @@ obj.foo(1)(2)(3) // 6
 
 Creates a new type object with additional methods that can be derived from existing ones.
 
-Note: all methods in the given object must be curried
-[as spec requires](spec.md#type),
-which is why we use `curryAll` in the example.
-
 ```js
 import {derive} from 'static-land'
-import {curryAll} from 'static-land'
 
-const obj = derive.deriveAll(curryAll({
+const obj = derive.deriveAll({
   of(x) {...},
   chain(fn, t) {...},
-}))
+})
 
 obj.map(fn, t) // works
 ```
@@ -144,4 +71,3 @@ TODO
 ### SId
 
 TODO
-

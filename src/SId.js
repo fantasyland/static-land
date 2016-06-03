@@ -1,6 +1,6 @@
-import fromIncomplete from './fromIncomplete'
+import {deriveAll} from './derive'
 
-const SId = fromIncomplete({
+const SId = deriveAll({
 
   equals(idA, idB) {
     return idA === idB

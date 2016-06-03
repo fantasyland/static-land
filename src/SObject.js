@@ -1,9 +1,9 @@
 import {mapObj, flow} from './utils'
 import SPair from './SPair'
 import SArray from './SArray'
-import fromIncomplete from './fromIncomplete'
+import {deriveAll} from './derive'
 
-const SObject = fromIncomplete({
+const SObject = deriveAll({
 
   map: mapObj,
 
@@ -33,8 +33,9 @@ const SObject = fromIncomplete({
     return {...objA, ...objB}
   },
 
-  toArray(objX) {
-    return Object.keys(objX).map(key => objX[key])
+  reduce(reducer, seed, obj) {
+    return Object.keys(obj).map(key => obj[key])
+      .reduce((acc, input) => reducer(acc, input), seed)
   },
 
   sequence(T, objT) {

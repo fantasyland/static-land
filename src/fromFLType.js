@@ -1,5 +1,5 @@
 import $ from 'fantasy-land'
-import fromIncomplete from './fromIncomplete'
+import {deriveAll} from './derive'
 
 
 export default function fromFLType(Constructor, availableMethods = Object.keys(Constructor.prototype)) {
@@ -62,6 +62,6 @@ export default function fromFLType(Constructor, availableMethods = Object.keys(C
     Type.empty = () => Constructor[$.empty]()
   }
 
-  return fromIncomplete(Type)
+  return deriveAll(Type)
 
 }

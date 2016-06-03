@@ -1,6 +1,6 @@
-import fromIncomplete from './fromIncomplete'
+import {deriveAll} from './derive'
 
-const SArray = fromIncomplete({
+const SArray = deriveAll({
 
   equals(a, b) {
     if (a.length !== b.length) {
@@ -34,8 +34,8 @@ const SArray = fromIncomplete({
     return arr.reduce(T.map2((r, i) => r.concat([i])), T.of([]))
   },
 
-  toArray(arr) {
-    return arr
+  reduce(reducer, seed, arr) {
+    return arr.reduce((acc, input) => reducer(acc, input), seed)
   },
 
   chain(fn, arr) {

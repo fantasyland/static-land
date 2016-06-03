@@ -1,6 +1,6 @@
-import fromIncomplete from './fromIncomplete'
+import {deriveAll} from './derive'
 
-const SPair = fromIncomplete({
+const SPair = deriveAll({
 
   map(fn, pairX) {
     return SPair.create(fn(pairX.first), pairX.second)

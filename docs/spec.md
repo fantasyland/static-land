@@ -274,11 +274,7 @@ to that of the derivation (or derivations).
 
 #### Laws
 
-  1. `F.reduce ≡ (f, x, u) => F.toArray(u).reduce(f, x)`
-
-#### Can be derived
-
-  1. toArray: `F.toArray = u => F.reduce((acc, x) => acc.concat([x]), [], u)`
+  1. `F.reduce ≡ (f, x, u) => F.reduce((acc, y) => acc.concat([y]), [], u).reduce(f, x)`
 
 
 
