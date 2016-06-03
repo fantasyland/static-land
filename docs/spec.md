@@ -66,7 +66,7 @@ map(x => x + 1, of(41)) // MyType(42)
 Each method in this spec comes with a type signature, that looks like the following.
 
 ```
-map :: Functor f => (a → b) → f a → f b
+map :: Functor f => (a → b, f a) → f b
 ```
 
 We use syntax similar to Haskell's. You can learn about it from
@@ -137,7 +137,7 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
 #### Methods
 
-  1. `equals :: Setoid s => s → s → Boolean`
+  1. `equals :: Setoid s => (s, s) → Boolean`
 
 #### Laws
 
@@ -151,7 +151,7 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
 #### Methods
 
-  1. `concat :: Semigroup s => s → s → s`
+  1. `concat :: Semigroup s => (s, s) → s`
 
 #### Laws
 
@@ -180,7 +180,7 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
 #### Methods
 
-  1. `map :: Functor f => (a → b) → f a → f b`
+  1. `map :: Functor f => (a → b, f a) → f b`
 
 #### Laws
 
@@ -197,7 +197,7 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
 #### Methods
 
-  1. `ap :: Apply f => f (a → b) → f a → f b`
+  1. `ap :: Apply f => (f (a → b), f a) → f b`
 
 #### Laws
 
@@ -235,7 +235,7 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
 #### Methods
 
-  1. `chain :: Chain m => (a → m b) → m a → m b`
+  1. `chain :: Chain m => (a → m b, m a) → m b`
 
 #### Laws
 
@@ -270,7 +270,7 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
 #### Methods
 
-  1. `reduce :: Foldable f => ((a, b) → a) → a → f b → a`
+  1. `reduce :: Foldable f => ((a, b) → a, a, f b) → a`
 
 #### Laws
 
@@ -286,7 +286,7 @@ be created (for instance we can derive `map` using `ap` or `chain`), they must b
 
 #### Methods
 
-  1. `extend :: Extend e => (e a → b) → e a → e b`
+  1. `extend :: Extend e => (e a → b, e a) → e b`
 
 #### Laws
 
