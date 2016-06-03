@@ -55,21 +55,10 @@ they are not methods and can be detached from the type object.
 The object is just a container for functions.
 
 ```js
-const map = MyType.map
-const of = MyType.of
+const {of, map} = MyType
 
 // This should work
 map(x => x + 1, of(41)) // MyType(42)
-```
-
-Each function of a type must be curried — if it's called with not enough
-arguments, it must return a function that expects missing arguments
-(Use [`curry`](API.md#curry), [`curryAll`](API.md#curryall), or
-[`R.curry`](http://ramdajs.com/docs/#curry) to create curried functions)
-
-```js
-const incLifted = MyType.map(x => x + 1)
-incLifted(MyType.of(41)) // MyType(42)
 ```
 
 ## Type signatures
