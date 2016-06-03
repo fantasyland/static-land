@@ -50,8 +50,8 @@ const Addition = {
 ## Type
 
 A type in Static Land is a dictionary (JavaScript object) with static functions as values.
-'Static' means that functions don't use `this`, they are not methods and
-can be detached from the type object. The type object is just a container for functions.
+'Static' means that functions don't use `this`, they can be detached from the type object.
+The type object is just a container for functions.
 
 ```js
 const {of, map} = MyType
@@ -59,6 +59,9 @@ const {of, map} = MyType
 // This should work
 map(x => x + 1, of(41)) // MyType(42)
 ```
+
+Functions from type object are often called "methods" of the type.
+But keep in mind that they are not "methods" in JS sense (they don't use `this`).
 
 ## Type signatures
 
