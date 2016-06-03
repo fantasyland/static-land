@@ -49,10 +49,9 @@ const Addition = {
 
 ## Type
 
-A type in Static Land is a JavaScript object with static functions as values.
-'Static' means that functions don't use `this`,
-they are not methods and can be detached from the type object.
-The object is just a container for functions.
+A type in Static Land is a dictionary (JavaScript object) with static functions as values.
+'Static' means that functions don't use `this`, they are not methods and
+can be detached from the type object. The type object is just a container for functions.
 
 ```js
 const {of, map} = MyType
@@ -76,14 +75,14 @@ We use syntax similar to Haskell's. You can learn about it from
 This spec uses the followng extensions to the type signature syntax:
 
   1. `(a, b) → c` denotest a not curried function of 2 arguments. Same for more arguments.
-  1. An upper case letter denotes the [type object](#type) of the type denoted with the same
-     letter in lower case. For instance a function with type `F → f → a`
+  1. An upper case letter denotes the [type object](#type) of the type denoted by the same
+     letter in lower case. For instance a function with type `(F, f) → a`
      can be called as `fn(F, F.of(1))`.
 
-If a method called with incorrect types the behaviour is unspecified,
-the recommended behaviour is to throw a `TypeError`. Also if a method accepts a function it
-must call the function according to the type signature, passing arguments of correct types
-and not passing any extra arguments.
+If a method called with incorrect types the behaviour is unspecified.
+Also if a method accepts a function it must call the function according to the type
+signature (pass arguments of correct types and don't pass less or more arguments that
+specified in the signature).
 
 ## Equivalence
 
@@ -108,12 +107,10 @@ An algebra is a set of values (type instances, and other values), a set of opera
 
 Each algebra is a separate specification.
 An algebra may have dependencies on other algebras which must be implemented.
-An algebra may also state other algebra methods which do not need
-to be implemented and how they can be derived from new methods.
 
-If a method can be derived and the type also has a hand written version of that method,
-derived and hand written methods must be equivalent. And if two derived version of a method can
-be created (for instance we can derive `map` using `ap` or `chain`), they must be equivalent.
+An algebra may also state other algebra methods which can be derived from new methods.
+If a type provides a method which could be derived, its behaviour must be equivalent
+to that of the derivation (or derivations).
 
 * [Setoid](#setoid)
 * [Semigroup](#semigroup)
