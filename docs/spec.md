@@ -342,20 +342,9 @@ const Compose = (A, B) => ({
 
     ```js
     F.reduce = (f, acc, u) => {
-      const Const = {
-        wrap(x) {
-          return {x}
-        },
-        of(_) {
-          return Const.wrap(acc)
-        },
-        map(fn, c) {
-          return c
-        },
-        ap(c1, c2) {
-          return Const.wrap(f(c1.x, c2.x))
-        },
-      }
-      return F.sequence(Const, F.map(Const.wrap, u)).x
+      const of = () => acc
+      const map = (_, x) => x
+      const ap = f
+      return F.sequence({of, map, ap}, u)
     }
     ```
