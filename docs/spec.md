@@ -126,10 +126,7 @@ to that of the derivation (or derivations).
 * [Foldable](#foldable)
 * [Extend](#extend)
 * [Comonad](#comonad)
-
-<!--
 * [Traversable](#traversable)
--->
 
 
 
@@ -308,22 +305,37 @@ to that of the derivation (or derivations).
   1. `C.extend(f, w) ≡ C.map(f, C.extend(x => x, w))`
 
 
-<!--
+
 ## Traversable
 
 #### Methods
 
-  1. `sequence :: (Traversable t, Applicative f) => F → t (f a) → f (t a)`
+  1. `sequence :: (Traversable t, Applicative f) => (F, t (f a)) → f (t a)`
 
 #### Laws
 
-  1. Naturality: `f(T.sequence(A1, u)) ≡ T.sequence(T.map(f, u), A2)` where `f` is a natural transformation from `A1` to `A2`
-  1. Identity: `T.sequence(Id, T.map(Id.of, u)) ≡ Id.of(u)`
-  1. Composition: `T.sequence(ComposeA1A2, T.map(ComposeA1A1.of, u)) ≡ ComposeA1A1.of(A1.map(v => T.sequence(A2, v), T.sequence(A1, u)))` where `ComposeA1A2 = Compose(A1, A2)`
+  1. Naturality: `f(T.sequence(A, u)) ≡ T.sequence(B, T.map(f))` for any `f` such that `B.map(g, f(a)) ≡ f(A.map(g, a))`
+  2. Identity: `T.sequence(F, T.map(F.of, u)) ≡ F.of(u)` for any Applicative `F`
+  3. Composition: `A.sequence(Compose(B, C), a) ≡ B.map(a1 => A.sequence(C, a1), A.sequence(B, a))` for `Compose` defined bellow (TODO: doublecheck)
 
-TODO:
+```js
+const Compose = (A, B) => ({
 
-  - clarify "natural transformation"
-  - double check it's correct (especially `#3`)
-  - implement `Compose`
--->
+  of(a) {
+    return a
+  },
+
+  ap(a1, a2) {
+    return A.ap(A.map(b1 => b2 => B.ap(b1, b2), a1), a2)
+  },
+
+  map(f, a) {
+    return A.map(b => B.map(f, b), a)
+  },
+
+})
+```
+
+#### Can be derived
+
+  1. Foldable's reduce: TODO
