@@ -316,7 +316,7 @@ to that of the derivation (or derivations).
 
   1. Naturality: `f(T.sequence(A, u)) ≡ T.sequence(B, T.map(f))` for any `f` such that `B.map(g, f(a)) ≡ f(A.map(g, a))`
   2. Identity: `T.sequence(F, T.map(F.of, u)) ≡ F.of(u)` for any Applicative `F`
-  3. Composition: `A.sequence(Compose(B, C), a) ≡ B.map(a1 => A.sequence(C, a1), A.sequence(B, a))` for `Compose` defined bellow (TODO: doublecheck)
+  3. Composition: `T.sequence(Compose(A, B), u) ≡ A.map(v => T.sequence(C, v), T.sequence(A, u))` for `Compose` defined bellow and for any Applicatives `A` and `B`
 
 ```js
 const Compose = (A, B) => ({
@@ -338,4 +338,23 @@ const Compose = (A, B) => ({
 
 #### Can be derived
 
-  1. Foldable's reduce: TODO
+  1. Foldable's reduce:
+    ```js
+    F.reduce = (f, acc, u) => {
+      const Const = {
+        wrap(x) {
+          return {x}
+        },
+        of(_) {
+          return Const.wrap(acc)
+        },
+        map(fn, c) {
+          return c
+        },
+        ap(c1, c2) {
+          return Const.wrap(f(c1.x, c2.x))
+        },
+      }
+      return F.sequence(Const, F.map(Const.wrap, u)).x
+    }
+    ```

@@ -22,6 +22,28 @@ export const join = T =>
 export const chain = T =>
   (fn, tx) => T.join(T.map(fn, tx))
 
+const ConstBase = {
+  wrap(x) {
+    return {x}
+  },
+  map(_, c) {
+    return c
+  },
+}
+export const reduce = T =>
+  (f, acc, t) => {
+    const Const = {
+      ...ConstBase,
+      of() {
+        return Const.wrap(acc)
+      },
+      ap(c1, c2) {
+        return Const.wrap(f(c1.x, c2.x))
+      },
+    }
+    return T.sequence(Const, T.map(Const.wrap, t)).x
+  }
+
 
 export const deriveAll = T => {
 
@@ -57,6 +79,10 @@ export const deriveAll = T => {
 
   if (T.traverse === undefined && T.map && T.sequence) {
     added.traverse = traverse(T)
+  }
+
+  if(T.reduce === undefined && T.map && T.sequence) {
+    added.reduce = reduce(T)
   }
 
   return {...T, ...added}
