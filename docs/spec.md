@@ -339,6 +339,7 @@ const Compose = (A, B) => ({
 #### Can be derived
 
   1. Foldable's reduce:
+
     ```js
     F.reduce = (f, acc, u) => {
       const Const = {
