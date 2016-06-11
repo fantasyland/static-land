@@ -316,13 +316,13 @@ to that of the derivation (or derivations).
 
   1. Naturality: `f(T.sequence(A, u)) ≡ T.sequence(B, T.map(f))` for any `f` such that `B.map(g, f(a)) ≡ f(A.map(g, a))`
   2. Identity: `T.sequence(F, T.map(F.of, u)) ≡ F.of(u)` for any Applicative `F`
-  3. Composition: `T.sequence(Compose(A, B), u) ≡ A.map(v => T.sequence(C, v), T.sequence(A, u))` for `Compose` defined bellow and for any Applicatives `A` and `B`
+  3. Composition: `T.sequence(ComposeAB, u) ≡ A.map(v => T.sequence(B, v), T.sequence(A, u))` for `ComposeAB` defined bellow and for any Applicatives `A` and `B`
 
 ```js
-const Compose = (A, B) => ({
+const ComposeAB = {
 
-  of(a) {
-    return a
+  of(x) {
+    return A.of(B.of(x))
   },
 
   ap(a1, a2) {
@@ -333,7 +333,7 @@ const Compose = (A, B) => ({
     return A.map(b => B.map(f, b), a)
   },
 
-})
+}
 ```
 
 #### Can be derived
