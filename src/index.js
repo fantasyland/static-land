@@ -1,15 +1,5 @@
-import * as derive from './derive'
-import {flow} from './utils'
-import fromFLType from './fromFLType'
-import SArray from './SArray'
-import SId from './SId'
-import SObject from './SObject'
+import fromFLType from './fromFLType.js'
 
 export {
-  derive,
-  flow,
   fromFLType,
-  SArray,
-  SId,
-  SObject,
 }

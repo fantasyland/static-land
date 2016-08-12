@@ -1,27 +1,40 @@
-# static-land [![Build Status](https://travis-ci.org/rpominov/static-land.svg?branch=master)](https://travis-ci.org/rpominov/static-land) [![Coverage Status](https://coveralls.io/repos/github/rpominov/static-land/badge.svg?branch=master)](https://coveralls.io/github/rpominov/static-land?branch=master)
+# Static Land
 
-Experimental specification for common algebraic types in JavaScript
+Specification for common algebraic types in JavaScript
 based on [Fantasy Land](https://github.com/fantasyland/fantasy-land).
-Plus some utils and implementations of some compliant types.
-
-## Docs
 
  * [Specification](docs/spec.md)
+
+## Utils
+
+We also have `static-land` package on NPM that provides some useful utilities (not much at the moment).
+
  * [API reference](docs/API.md)
 
-## Installation
+### Installation
 
+```sh
+npm install fun-task
 ```
-npm install static-land
+
+```js
+// modern JavaScritp
+import {fromFLType} from 'static-land'
+
+// classic JavaScript
+var fromFLType = require('static-land').fromFLType
 ```
 
-Also available on https://npmcdn.com to play in JSFiddle etc.:
+Or using CDN:
 
- - https://npmcdn.com/static-land/umd/staticLand.js
- - https://npmcdn.com/static-land/umd/staticLand.min.js
+```html
+<script src="https://npmcdn.com/static-land/umd/staticLand.js"></script>
+<script>
+  var fromFLType = window.StaticLand.fromFLType
+</script>
+```
 
-
-## Development
+### Development
 
 ```
 npm run lobot -- --help

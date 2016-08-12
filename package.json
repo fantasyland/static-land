@@ -1,4 +1,5 @@
 {
+  "name": "static-land",
   "version": "0.1.5",
   "description": "An exploration of alternative approach for dealing with Fantasy Land types in JS",
   "main": "lib/index.js",
@@ -17,18 +18,15 @@
   "author": "Roman Pominov <rpominov@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "6.0.2",
-    "eslint": "2.2.0",
+    "babel-eslint": "6.1.2",
+    "eslint": "2.13.1",
     "fantasy-check": "0.3.2",
-    "fantasy-land": "0.2.1",
-    "lobot": "0.1.10",
+    "lobot": "0.1.19",
     "transducers-js": "0.4.174"
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "fantasy-land": ">=0.2.0"
+  "dependencies": {
+    "fantasy-land": "0.3.0"
   },
-  "name": "static-land",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rpominov/static-land.git"
