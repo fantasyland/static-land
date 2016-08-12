@@ -5,32 +5,32 @@ based on [Fantasy Land](https://github.com/fantasyland/fantasy-land).
 
 * [Specification](docs/spec.md)
 
-### How to add compatibility with Static Land to you library
+### How to add compatibility with Static Land to your library
 
 All you need to do is to expose some [Type Object](docs/spec.md#type) that can work with types that your library provides or with any other types, e.g. you can build a library that provides Static Land compatibility for another library or for native types like Array.
 
-Type Object doesn't have to be simple JavaScript object, but can as well be a constructor of your type for instance. The only two requirements that:
+Type Object doesn't have to be simple JavaScript object, but can as well be a constructor of your type for instance. The only two requirements are:
 
 - this object contains some static methods from Static Land,
-- and if it contain a method with one of the names that Static Land reserves, that method must be a Static Land method (obey laws etc.)
+- and if it contains a method with one of the names that Static Land reserves, that method must be a Static Land method (obey laws etc.)
 
 #### Example 1. Static Land type for Array
 
 ```js
 const SArray = {
-  
+
+  of(x) {
+    return [x]
+  },
+
   map(fn, arr) {
     return arr.map(fn)
   },
-  
-  ap(arr1, arr2) {
-    // ...
-  },
-  
+
   chain(fn, arr) {
     // ...
   },
-  
+
 }
 
 export {SArray}
@@ -40,11 +40,11 @@ export {SArray}
 
 ```js
 class MyType = {
-  
+
   constructor() {
     // ...
   }
-  
+
   someInstanceMethod() {
     // ...
   }
@@ -63,7 +63,7 @@ class MyType = {
   static map(fn, value) {
     // ...
   }
-  
+
 }
 
 export {MyType}
