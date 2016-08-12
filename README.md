@@ -117,7 +117,7 @@ export {MyType}
 
 ## Utils
 
-We also have `static-land` package on NPM that provides some useful utilities (not much at the moment).
+We also have `static-land` package on NPM that provides some useful utilities (not many at the moment).
 
 * [API reference](docs/API.md)
 
