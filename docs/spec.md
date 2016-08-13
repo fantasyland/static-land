@@ -76,6 +76,8 @@ to that of the derivation (or derivations).
 * [Semigroup](#semigroup)
 * [Monoid](#monoid)
 * [Functor](#functor)
+* [Bifunctor](#bifunctor)
+* [Profunctor](#profunctor)
 * [Apply](#apply)
 * [Applicative](#applicative)
 * [Chain](#chain)
@@ -140,6 +142,40 @@ to that of the derivation (or derivations).
 
   1. Identity: `F.map(x => x, a) ≡ a`
   1. Composition: `F.map(x => f(g(x)), a) ≡ F.map(f, F.map(g, a))`
+
+
+
+## Bifunctor
+
+  #### Dependencies
+
+    1. Functor
+
+  #### Methods
+
+    1. `bimap :: Bifunctor f => (a → b, c → d, f a c) → f b d`
+
+  #### Laws
+
+    1. Identity: `B.bimap(x => x, x => x, a) ≡ a`
+    1. Composition: `B.bimap(x => f(g(x)), x => h(i(x)), a) ≡ F.bimap(f, h, F.bimap(g, i, a))`
+
+
+
+## Profunctor
+
+  #### Dependencies
+
+    1. Functor
+
+  #### Methods
+
+    1. `promap :: Profunctor f => (a → b, c → d, f b c) → f a d`
+
+  #### Laws
+
+    1. Identity: `B.promap(x => x, x => x, a) ≡ a`
+    1. Composition: `B.promap(x => f(g(x)), x => h(i(x)), a) ≡ F.promap(g, h, F.promap(f, i, a))`
 
 
 
