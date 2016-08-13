@@ -160,6 +160,10 @@ to that of the derivation (or derivations).
   1. Identity: `B.bimap(x => x, x => x, a) ≡ a`
   1. Composition: `B.bimap(x => f(g(x)), x => h(i(x)), a) ≡ F.bimap(f, h, F.bimap(g, i, a))`
 
+#### Can be derived
+
+  1. Functor's map: `A.map = (f, u) => A.bimap(x => x, f, u)`
+
 
 
 ## Profunctor
@@ -176,6 +180,10 @@ to that of the derivation (or derivations).
 
   1. Identity: `B.promap(x => x, x => x, a) ≡ a`
   1. Composition: `B.promap(x => f(g(x)), x => h(i(x)), a) ≡ F.promap(g, h, F.promap(f, i, a))`
+
+#### Can be derived
+
+  1. Functor's map: `A.map = (f, u) => A.promap(x => x, f, u)`
 
 
 
