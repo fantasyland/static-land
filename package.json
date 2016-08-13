@@ -20,9 +20,7 @@
   "devDependencies": {
     "babel-eslint": "6.1.2",
     "eslint": "2.13.1",
-    "fantasy-check": "0.3.2",
-    "lobot": "0.1.19",
-    "transducers-js": "0.4.174"
+    "lobot": "0.1.19"
   },
   "dependencies": {
     "fantasy-land": "0.3.0"
