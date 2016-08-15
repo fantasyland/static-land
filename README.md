@@ -115,7 +115,7 @@ export {MyType}
 
 
 
-## Utils
+## Utils [![Build Status](https://travis-ci.org/rpominov/static-land.svg?branch=master)](https://travis-ci.org/rpominov/static-land) [![Coverage Status](https://coveralls.io/repos/github/rpominov/static-land/badge.svg?branch=master)](https://coveralls.io/github/rpominov/static-land?branch=master)
 
 We also have `static-land` package on NPM that provides some useful utilities (not many at the moment).
 
