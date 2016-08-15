@@ -1,4 +1,4 @@
-# Static Land
+# ![](logo/logo.svg) Static Land
 
 Specification for common algebraic types in JavaScript
 based on [Fantasy Land](https://github.com/fantasyland/fantasy-land).
