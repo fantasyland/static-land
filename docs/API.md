@@ -48,7 +48,7 @@ runGenerator(List, function*() {
 
 runGenerator(List, function*() {
   const x = yield [1, -2, 3]
-  return return x > 0 ? [x * 2] : []
+  return x > 0 ? [x * 2] : []
 }) // -> [2, 6]
 ```
 

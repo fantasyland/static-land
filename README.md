@@ -124,7 +124,7 @@ We also have `static-land` package on NPM that provides some useful utilities (n
 ### Installation
 
 ```sh
-npm install fun-task
+npm install static-land
 ```
 
 ```js
