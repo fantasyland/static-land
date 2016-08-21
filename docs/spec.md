@@ -133,7 +133,7 @@ to that of the derivation (or derivations).
 * [Monoid](#monoid)
 * [Functor](#functor)
 * [Bifunctor](#bifunctor)
-* [Contravariant Functor](#contravariant functor)
+* [Contravariant Functor](#contravariant-functor)
 * [Profunctor](#profunctor)
 * [Apply](#apply)
 * [Applicative](#applicative)
