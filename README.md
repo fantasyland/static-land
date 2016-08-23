@@ -113,7 +113,7 @@ class MyType = {
 export {MyType}
 ```
 
-## Compatible libraries
+### Compatible libraries
 
 We have a list in the wiki. Feel free to add your library there.
 
