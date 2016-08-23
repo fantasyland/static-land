@@ -124,7 +124,7 @@ We also have `static-land` package on npm that provides some useful utilities (n
 ### Installation
 
 ```console
-$ npm install static-land
+npm install static-land
 ```
 
 ```js
@@ -147,7 +147,7 @@ Or using CDN:
 ### Development
 
 ```console
-$ npm run lobot -- --help
+npm run lobot -- --help
 ```
 
 Run [lobot](https://github.com/rpominov/lobot) commands as `npm run lobot -- args...`.
