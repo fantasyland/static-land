@@ -32,17 +32,16 @@ We use syntax similar to Haskell's. You can learn about it from
 [Ramda's wiki](https://github.com/ramda/ramda/wiki/Type-Signatures) or from book
 ["Professor Frisby's Mostly Adequate Guide to Functional Programming"](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html)
 
-This spec uses the followng extensions to the type signature syntax:
+This spec uses the following extensions to the type signature syntax:
 
-  1. `(a, b) → c` denotest a not curried function of 2 arguments. Same for more arguments.
-  1. An upper case letter denotes the [type object](#type) of the type denoted by the same
+  1. `(a, b) → c` denotes a binary function which is not curried. Same for more arguments.
+  1. An upper-case letter denotes the [type object](#type) of the type denoted by the same
      letter in lower case. For instance a function with type `(F, f) → a`
      can be called as `fn(F, F.of(1))`.
 
 If a method called with incorrect types the behaviour is unspecified.
-Also if a method accepts a function it must call the function according to the type
-signature (pass arguments of correct types and don't pass less or more arguments that
-specified in the signature).
+Also if a method accepts a function it must only apply the function in accordance with
+the type signature (i.e. provide the correct number of arguments of the correct types).
 
 ## Equivalence
 

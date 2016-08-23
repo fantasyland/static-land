@@ -23,7 +23,7 @@ for Static Land monads based on
 [generators](https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Iterators_and_Generators).
 
 `TypeObject` must contain the [chain](./spec.md#chain) method. The `generator`
-function must `yield` and `return` values that `TypeObject` uses as it's values.
+function must `yield` and `return` values that `TypeObject` uses as its values.
 
 ```js
 import {runGenerator} from 'static-land'
