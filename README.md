@@ -113,6 +113,11 @@ class MyType = {
 export {MyType}
 ```
 
+## Compatible libraries
+
+We have a list in the wiki. Feel free to add your library there.
+
+- [Compatible libraries](https://github.com/rpominov/static-land/wiki/Compatible-libraries)
 
 
 ## Utils [![Build Status](https://travis-ci.org/rpominov/static-land.svg?branch=master)](https://travis-ci.org/rpominov/static-land) [![Coverage Status](https://coveralls.io/repos/github/rpominov/static-land/badge.svg?branch=master)](https://coveralls.io/github/rpominov/static-land?branch=master)
