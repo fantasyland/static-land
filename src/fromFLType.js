@@ -11,6 +11,18 @@ function defAvailableMethods(Constructor) {
   return result
 }
 
+const map = (fn, tx) => tx[$.map](fn)
+const bimap = (fa, fb, t) => t[$.bimap](fa, fb)
+const promap = (fa, fb, t) => t[$.promap](fa, fb)
+const equals = (ta, tb) => ta[$.equals](tb)
+const concat = (ta, tb) => ta[$.concat](tb)
+const ap = (tf, tx) => tf[$.ap](tx)
+const reduce = (fn, seed, tx) => tx[$.reduce](fn, seed)
+const sequence = (Inner, ti) => ti[$.sequence](Inner.of)
+const chain = (fn, tx) => tx[$.chain](fn)
+const extend = (fn, tx) => tx[$.extend](fn)
+const extract = (tx) => tx[$.extract]()
+
 export default function fromFLType(Constructor, availableMethods = defAvailableMethods(Constructor)) {
 
   function available(method) {
@@ -19,49 +31,17 @@ export default function fromFLType(Constructor, availableMethods = defAvailableM
 
   const Type = {}
 
-  if (available($.map)) {
-    Type.map = (fn, tx) => tx[$.map](fn)
-  }
-
-  if (available($.bimap)) {
-    Type.bimap = (fa, fb, t) => t[$.bimap](fa, fb)
-  }
-
-  if (available($.promap)) {
-    Type.promap = (fa, fb, t) => t[$.promap](fa, fb)
-  }
-
-  if (available($.equals)) {
-    Type.equals = (ta, tb) => ta[$.equals](tb)
-  }
-
-  if (available($.concat)) {
-    Type.concat = (ta, tb) => ta[$.concat](tb)
-  }
-
-  if (available($.ap)) {
-    Type.ap = (tf, tx) => tf[$.ap](tx)
-  }
-
-  if (available($.reduce)) {
-    Type.reduce = (fn, seed, tx) => tx[$.reduce](fn, seed)
-  }
-
-  if (available($.sequence)) {
-    Type.sequence = (Inner, ti) => ti[$.sequence](Inner.of)
-  }
-
-  if (available($.chain)) {
-    Type.chain = (fn, tx) => tx[$.chain](fn)
-  }
-
-  if (available($.extend)) {
-    Type.extend = (fn, tx) => tx[$.extend](fn)
-  }
-
-  if (available($.extract)) {
-    Type.extract = (tx) => tx[$.extract]()
-  }
+  if (available($.map)) Type.map = map
+  if (available($.bimap)) Type.bimap = bimap
+  if (available($.promap)) Type.promap = promap
+  if (available($.equals)) Type.equals = equals
+  if (available($.concat)) Type.concat = concat
+  if (available($.ap)) Type.ap = ap
+  if (available($.reduce)) Type.reduce = reduce
+  if (available($.sequence)) Type.sequence = sequence
+  if (available($.chain)) Type.chain = chain
+  if (available($.extend)) Type.extend = extend
+  if (available($.extract)) Type.extract = extract
 
   if (available($.of)) {
     if (Constructor.prototype[$.of]) {
