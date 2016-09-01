@@ -143,7 +143,7 @@ var fromFLType = require('static-land').fromFLType
 Or using CDN:
 
 ```html
-<script src="https://npmcdn.com/static-land/umd/staticLand.js"></script>
+<script src="https://unpkg.com/static-land/umd/staticLand.js"></script>
 <script>
   var fromFLType = window.StaticLand.fromFLType
 </script>
