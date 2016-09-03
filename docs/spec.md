@@ -308,6 +308,11 @@ to that of the derivation (or derivations).
 
 ## Traversable
 
+#### Dependencies
+
+  1. Functor
+  1. Foldable
+
 #### Methods
 
   1. `sequence :: (Traversable t, Applicative f) => (F, t (f a)) → f (t a)`
