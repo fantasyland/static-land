@@ -133,7 +133,7 @@ npm install static-land
 ```
 
 ```js
-// modern JavaScritp
+// modern JavaScript
 import {fromFLType} from 'static-land'
 
 // classic JavaScript
