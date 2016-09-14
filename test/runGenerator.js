@@ -1,3 +1,5 @@
+/* eslint-disable require-yield */
+
 import makeTest from 'lobot/test'
 
 import 'babel-polyfill'
@@ -134,7 +136,7 @@ test('two yields (List, 2 -> 2 -> 1)', 4 * 3 + 1, t => {
 test('filter and map (List)', 1, t => {
   const result = runGenerator(List, function* () {
     const x = yield [1, -2, 3]
-    return x > 0 ? [x * 2] : [] 
+    return x > 0 ? [x * 2] : []
   })
   t.deepEqual(result, [2, 6])
 })
