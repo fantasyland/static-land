@@ -20,8 +20,8 @@
   "devDependencies": {
     "babel-eslint": "6.1.2",
     "babel-polyfill": "6.13.0",
-    "eslint": "2.13.1",
-    "lobot": "0.1.19"
+    "eslint": "3.5.0",
+    "lobot": "0.1.21"
   },
   "dependencies": {
     "fantasy-land": "0.3.0"
