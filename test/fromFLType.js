@@ -82,6 +82,11 @@ class Id {
   'fantasy-land/extract'() {
     return this.x
   }
+
+  'fantasy-land/traverse'(f /* , of */) {
+    return f(this.x)['fantasy-land/map'](Id['fantasy-land/of'])
+  }
+
 }
 
 const SId = fromFLType(Id)
@@ -89,7 +94,7 @@ const SSum = fromFLType(Sum)
 const SPair = fromFLType(Pair)
 const SFn = fromFLType(Fn)
 
-test('auto detection of available methods', 12 * 2 + 2, t => {
+test('auto detection of available methods', 13 * 2 + 2, t => {
   t.equals(typeof SId.of, 'function')
   t.equals(typeof SId.equals, 'function')
   t.equals(typeof SId.map, 'function')
@@ -102,6 +107,7 @@ test('auto detection of available methods', 12 * 2 + 2, t => {
   t.equals(typeof SId.concat, 'undefined')
   t.equals(typeof SId.bimap, 'undefined')
   t.equals(typeof SId.promap, 'undefined')
+  t.equals(typeof SId.traverse, 'function')
 
   t.equals(typeof SSum.of, 'undefined')
   t.equals(typeof SSum.equals, 'undefined')
@@ -115,6 +121,7 @@ test('auto detection of available methods', 12 * 2 + 2, t => {
   t.equals(typeof SSum.concat, 'function')
   t.equals(typeof SSum.bimap, 'undefined')
   t.equals(typeof SSum.promap, 'undefined')
+  t.equals(typeof SSum.traverse, 'undefined')
 
   t.equals(typeof SPair.bimap, 'function')
   t.equals(typeof SFn.promap, 'function')
@@ -183,4 +190,19 @@ test('bimap', 2, t => {
 
 test('promap', 1, t => {
   t.equals(SFn.promap(parseInt, x => x.toString(), new Fn(x => x * 3)).f('2'), '6')
+})
+
+test('traverse', 1, t => {
+  const A = {
+    of(a) {
+      return {a}
+    },
+    map(f, a) {
+      return A.of(f(a.a))
+    },
+    ap(af, ax) {
+      return A.of(af.a(ax.a))
+    },
+  }
+  t.equals(SId.traverse(A, A.of, SId.of(2)).a.x, 2)
 })

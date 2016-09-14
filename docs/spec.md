@@ -315,13 +315,13 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `sequence :: (Traversable t, Applicative f) => (F, t (f a)) → f (t a)`
+  1. `traverse :: (Traversable t, Applicative f) => (F, (a → f b), t a) → f (t b)`
 
 #### Laws
 
-  1. Naturality: `f(T.sequence(A, u)) ≡ T.sequence(B, T.map(f))` for any `f` such that `B.map(g, f(a)) ≡ f(A.map(g, a))`
-  2. Identity: `T.sequence(F, T.map(F.of, u)) ≡ F.of(u)` for any Applicative `F`
-  3. Composition: `T.sequence(ComposeAB, u) ≡ A.map(v => T.sequence(B, v), T.sequence(A, u))` for `ComposeAB` defined bellow and for any Applicatives `A` and `B`
+  1. Naturality: `f(T.traverse(A, x => x, u)) ≡ T.traverse(B, f, u)` for any `f` such that `B.map(g, f(a)) ≡ f(A.map(g, a))`
+  2. Identity: `T.traverse(F, F.of, u) ≡ F.of(u)` for any Applicative `F`
+  3. Composition: `T.traverse(ComposeAB, x => x, u) ≡ A.map(v => T.traverse(B, x => x, v), T.traverse(A, x => x, u))` for `ComposeAB` defined bellow and for any Applicatives `A` and `B`
 
 ```js
 const ComposeAB = {
@@ -350,6 +350,17 @@ const ComposeAB = {
       const of = () => acc
       const map = (_, x) => x
       const ap = f
-      return F.sequence({of, map, ap}, u)
+      return F.traverse({of, map, ap}, x => x, u)
+    }
+    ```
+
+  2. Functor's map:
+
+    ```js
+    F.map = (f, u) => {
+      const of = (x) => x
+      const map = (f, a) => f(a)
+      const ap = (f, a) => f(a)
+      return F.traverse({of, map, ap}, x => f(x), u)
     }
     ```

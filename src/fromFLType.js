@@ -11,7 +11,7 @@ function defAvailableMethods(Constructor) {
   if (Constructor.prototype[$.concat]) result.push('concat')
   if (Constructor.prototype[$.ap]) result.push('ap')
   if (Constructor.prototype[$.reduce]) result.push('reduce')
-  if (Constructor.prototype[$.sequence]) result.push('sequence')
+  if (Constructor.prototype[$.traverse]) result.push('traverse')
   if (Constructor.prototype[$.chain]) result.push('chain')
   if (Constructor.prototype[$.extend]) result.push('extend')
   if (Constructor.prototype[$.extract]) result.push('extract')
@@ -25,10 +25,17 @@ const equals = (ta, tb) => ta[$.equals](tb)
 const concat = (ta, tb) => ta[$.concat](tb)
 const ap = (tf, tx) => tx[$.ap](tf)
 const reduce = (fn, seed, tx) => tx[$.reduce](fn, seed)
-const sequence = (Inner, ti) => ti[$.sequence](Inner.of)
 const chain = (fn, tx) => tx[$.chain](fn)
 const extend = (fn, tx) => tx[$.extend](fn)
 const extract = (tx) => tx[$.extract]()
+const traverse = (Inner, f, ti) => {
+  function SL2FLAdapter(x) { this._x = x }
+  SL2FLAdapter[$.of] = (x) => { return new SL2FLAdapter(Inner.of(x)) }
+  SL2FLAdapter.prototype[$.of] = SL2FLAdapter[$.of]
+  SL2FLAdapter.prototype[$.map] = function(f) { return new SL2FLAdapter(Inner.map(f, this._x)) }
+  SL2FLAdapter.prototype[$.ap] = function(f) { return new SL2FLAdapter(Inner.ap(f._x, this._x)) }
+  return ti[$.traverse](x => new SL2FLAdapter(f(x)), SL2FLAdapter[$.of])._x
+}
 
 export default function fromFLType(Constructor, availableMethods = defAvailableMethods(Constructor)) {
 
@@ -45,7 +52,7 @@ export default function fromFLType(Constructor, availableMethods = defAvailableM
   if (available('concat')) Type.concat = concat
   if (available('ap')) Type.ap = ap
   if (available('reduce')) Type.reduce = reduce
-  if (available('sequence')) Type.sequence = sequence
+  if (available('traverse')) Type.traverse = traverse
   if (available('chain')) Type.chain = chain
   if (available('extend')) Type.extend = extend
   if (available('extract')) Type.extract = extract
