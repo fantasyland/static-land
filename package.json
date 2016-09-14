@@ -24,7 +24,7 @@
     "lobot": "0.1.21"
   },
   "dependencies": {
-    "fantasy-land": "0.3.0"
+    "fantasy-land": "1.0.0"
   },
   "repository": {
     "type": "git",
