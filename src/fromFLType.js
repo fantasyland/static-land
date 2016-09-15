@@ -19,6 +19,19 @@ function defAvailableMethods(Constructor) {
   return result
 }
 
+// Creates a FL Applicative from a SL Applicative
+function fromSL(T) {
+  function Adapter(slValue) {
+    this._slValue = slValue
+  }
+  Adapter[$.of] = x => new Adapter(T.of(x))
+  Adapter.prototype[$.of] = Adapter[$.of]
+  Adapter.prototype[$.map] = function(f) { return new Adapter(T.map(f, this.unwrap())) }
+  Adapter.prototype[$.ap] = function(f) { return new Adapter(T.ap(f.unwrap(), this.unwrap())) }
+  Adapter.prototype.unwrap = function() { return this._slValue }
+  return Adapter
+}
+
 const map = (fn, tx) => tx[$.map](fn)
 const bimap = (fa, fb, t) => t[$.bimap](fa, fb)
 const promap = (fa, fb, t) => t[$.promap](fa, fb)
@@ -30,12 +43,8 @@ const chain = (fn, tx) => tx[$.chain](fn)
 const extend = (fn, tx) => tx[$.extend](fn)
 const extract = (tx) => tx[$.extract]()
 const traverse = (Inner, f, ti) => {
-  function SL2FLAdapter(x) { this._x = x }
-  SL2FLAdapter[$.of] = (x) => { return new SL2FLAdapter(Inner.of(x)) }
-  SL2FLAdapter.prototype[$.of] = SL2FLAdapter[$.of]
-  SL2FLAdapter.prototype[$.map] = function(f) { return new SL2FLAdapter(Inner.map(f, this._x)) }
-  SL2FLAdapter.prototype[$.ap] = function(f) { return new SL2FLAdapter(Inner.ap(f._x, this._x)) }
-  return ti[$.traverse](x => new SL2FLAdapter(f(x)), SL2FLAdapter[$.of])._x
+  const Adapter = fromSL(Inner)
+  return ti[$.traverse](x => new Adapter(f(x)), Adapter[$.of]).unwrap()
 }
 
 export default function fromFLType(Constructor, availableMethods = defAvailableMethods(Constructor)) {

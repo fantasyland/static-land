@@ -3,38 +3,26 @@ import makeTest from 'lobot/test'
 const test = makeTest.wrap('derivations')
 
 const A = {
-  of(x) {
-    return {T: 'A', x}
+  of(a) {
+    return {T: 'A', a}
   },
   map(f, a) {
-    return A.of(f(a.x))
+    return A.of(f(a.a))
   },
   ap(af, ax) {
-    return A.of(af.x(ax.x))
+    return A.of(af.a(ax.a))
   },
 }
 
 const B = {
-  of(x) {
-    return {T: 'B', x}
+  of(b) {
+    return {T: 'B', b}
   },
   map(f, a) {
-    return B.of(f(a.x))
+    return B.of(f(a.b))
   },
   ap(af, ax) {
-    return B.of(af.x(ax.x))
-  },
-}
-
-const C = {
-  of(x) {
-    return {T: 'C', x}
-  },
-  map(f, a) {
-    return C.of(f(a.x))
-  },
-  ap(af, ax) {
-    return C.of(af.x(ax.x))
+    return B.of(af.b(ax.b))
   },
 }
 
@@ -92,7 +80,7 @@ test.wrap('SArray itself', test => {
 
 test('Traverse composition', 1, t => {
 
-  const u = [B.of(C.of(1)), B.of(C.of(2))]
+  const u = [A.of(B.of(1)), A.of(B.of(2))]
   const T = SArray
 
   const ComposeAB = {
