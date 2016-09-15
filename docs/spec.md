@@ -361,6 +361,6 @@ const ComposeAB = {
       const of = (x) => x
       const map = (f, a) => f(a)
       const ap = (f, a) => f(a)
-      return F.traverse({of, map, ap}, x => f(x), u)
+      return F.traverse({of, map, ap}, f, u)
     }
     ```
