@@ -247,18 +247,18 @@ to that of the derivation (or derivations).
 
 ## ChainRec
 
-  #### Dependencies
+#### Dependencies
 
-    1. Chain
+  1. Chain
 
-  #### Methods
+#### Methods
 
-    1. `chainRec :: ChainRec m => ((a → c, b → c, a) → m c, a) → m b`
+  1. `chainRec :: ChainRec m => ((a → c, b → c, a) → m c, a) → m b`
 
-  #### Laws
+#### Laws
 
-    1. Equivalence: `C.chainRec((next, done, v) => p(v) ? C.map(done, d(v)) : C.map(next, n(v)), i) ≡ (function step(v) { return p(v) ? d(v) : C.chain(step, n(v)) }(i))`
-    2. Stack usage of `C.chainRec(f, i)` must be at most a constant multiple of the stack usage of `f` itself.
+  1. Equivalence: `C.chainRec((next, done, v) => p(v) ? C.map(done, d(v)) : C.map(next, n(v)), i) ≡ (function step(v) { return p(v) ? d(v) : C.chain(step, n(v)) }(i))`
+  2. Stack usage of `C.chainRec(f, i)` must be at most a constant multiple of the stack usage of `f` itself.
 
 
 
