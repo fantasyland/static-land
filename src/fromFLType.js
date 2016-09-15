@@ -4,6 +4,7 @@ function defAvailableMethods(Constructor) {
   const result = []
   if (Constructor[$.of]) result.push('of')
   if (Constructor[$.empty]) result.push('empty')
+  if (Constructor[$.chainRec]) result.push('chainRec')
   if (Constructor.prototype[$.equals]) result.push('equals')
   if (Constructor.prototype[$.map]) result.push('map')
   if (Constructor.prototype[$.bimap]) result.push('bimap')
@@ -58,6 +59,7 @@ export default function fromFLType(Constructor, availableMethods = defAvailableM
   if (available('extract')) Type.extract = extract
   if (available('of')) Type.of = Constructor[$.of]
   if (available('empty')) Type.empty = Constructor[$.empty]
+  if (available('chainRec')) Type.chainRec = Constructor[$.chainRec]
 
   return Type
 

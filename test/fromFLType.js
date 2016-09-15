@@ -3,10 +3,6 @@ import {fromFLType} from '../src'
 
 const test = makeTest.wrap('fromFLType')
 
-// TODO:
-//   traverse (after sequence replaced with it)
-//   chainRec (after added)
-
 class Sum {
 
   constructor(x) {
@@ -71,6 +67,16 @@ class Id {
     return f(this.x)
   }
 
+  static 'fantasy-land/chainRec'(f, i) {
+    const next = v => ({done: false, value: v})
+    const done = v => ({done: true, value: v})
+    let state = {done: false, value: i}
+    while (state.done === false) {
+      state = f(next, done, state.value).x
+    }
+    return new Id(state.value)
+  }
+
   'fantasy-land/reduce'(f, x) {
     return f(x, this.x)
   }
@@ -94,12 +100,13 @@ const SSum = fromFLType(Sum)
 const SPair = fromFLType(Pair)
 const SFn = fromFLType(Fn)
 
-test('auto detection of available methods', 13 * 2 + 2, t => {
+test('auto detection of available methods', 14 * 2 + 2, t => {
   t.equals(typeof SId.of, 'function')
   t.equals(typeof SId.equals, 'function')
   t.equals(typeof SId.map, 'function')
   t.equals(typeof SId.ap, 'function')
   t.equals(typeof SId.chain, 'function')
+  t.equals(typeof SId.chainRec, 'function')
   t.equals(typeof SId.reduce, 'function')
   t.equals(typeof SId.extend, 'function')
   t.equals(typeof SId.extract, 'function')
@@ -114,6 +121,7 @@ test('auto detection of available methods', 13 * 2 + 2, t => {
   t.equals(typeof SSum.map, 'undefined')
   t.equals(typeof SSum.ap, 'undefined')
   t.equals(typeof SSum.chain, 'undefined')
+  t.equals(typeof SSum.chainRec, 'undefined')
   t.equals(typeof SSum.reduce, 'undefined')
   t.equals(typeof SSum.extend, 'undefined')
   t.equals(typeof SSum.extract, 'undefined')
@@ -161,6 +169,10 @@ test('ap', 1, t => {
 
 test('chain', 1, t => {
   t.equals(SId.chain(x => SId.of(x * 3), SId.of(2)).x, 6)
+})
+
+test('chainRec', 1, t => {
+  t.equals(SId.chainRec((n, d, x) => x > 0 ? SId.of(n(x - 1)) : SId.of(d(x)), 3).x, 0)
 })
 
 test('reduce', 1, t => {

@@ -80,6 +80,7 @@ to that of the derivation (or derivations).
 * [Apply](#apply)
 * [Applicative](#applicative)
 * [Chain](#chain)
+* [ChainRec](#chainrec)
 * [Monad](#monad)
 * [Foldable](#foldable)
 * [Extend](#extend)
@@ -241,6 +242,23 @@ to that of the derivation (or derivations).
 #### Can be derived
 
   1. Apply's ap: `A.ap = (uf, ux) => A.chain(f => A.map(f, ux), uf)`
+
+
+
+## ChainRec
+
+  #### Dependencies
+
+    1. Chain
+
+  #### Methods
+
+    1. `chainRec :: ChainRec m => ((a → c, b → c, a) → m c, a) → m b`
+
+  #### Laws
+
+    1. Equivalence: `C.chainRec((next, done, v) => p(v) ? C.map(done, d(v)) : C.map(next, n(v)), i) ≡ (function step(v) { return p(v) ? d(v) : C.chain(step, n(v)) }(i))`
+    2. Stack usage of `C.chainRec(f, i)` must be at most a constant multiple of the stack usage of `f` itself.
 
 
 
