@@ -5,6 +5,15 @@ import makeTest from 'lobot/test'
 import 'babel-polyfill'
 import {runGenerator} from '../src'
 
+function computeMaxCallStackSize() {
+  try {
+    return 1 + computeMaxCallStackSize()
+  } catch (e) {
+    return 1
+  }
+}
+const MAX_STACK_SIZE = computeMaxCallStackSize()
+
 const test = makeTest.wrap('runGenerator')
 
 const Id = {
@@ -16,6 +25,24 @@ const Id = {
   },
 }
 
+const IdRec = {
+  of(x) {
+    return {x}
+  },
+  map(f, id) {
+    return IdRec.of(f(id.x))
+  },
+  chainRec(f, i) {
+    const next = v => ({done: false, value: v})
+    const done = v => ({done: true, value: v})
+    let state = {done: false, value: i}
+    while (state.done === false) {
+      state = f(next, done, state.value).x
+    }
+    return IdRec.of(state.value)
+  },
+}
+
 
 const List = {
   of(x) {
@@ -23,6 +50,30 @@ const List = {
   },
   chain(f, list) {
     return list.reduce((acc, input) => acc.concat(f(input)), [])
+  },
+}
+
+
+const ListRec = {
+  of(x) {
+    return [x]
+  },
+  map(f, list) {
+    return list.map(f)
+  },
+  chainRec(f, i) {
+    const next = v => ({done: false, value: v})
+    const done = v => ({done: true, value: v})
+    let state = [{done: false, value: i}]
+    while (!state.reduce((r, i) => r && i.done, true)) {
+      state = state.reduce(
+        (r, i) =>
+          i.done
+            ? r.concat([i])
+            : r.concat(f(next, done, i.value))
+      , [])
+    }
+    return state.map(i => i.value)
   },
 }
 
@@ -139,4 +190,60 @@ test('filter and map (List)', 1, t => {
     return x > 0 ? [x * 2] : []
   })
   t.deepEqual(result, [2, 6])
+})
+
+
+test('max stack size (Id chain)', 1, t => {
+  t.throws(() => {
+    runGenerator(Id, function* () {
+      let i = MAX_STACK_SIZE + 2
+      while (i !== 0) {
+        i = yield Id.of(i - 1)
+      }
+      return Id.of(i)
+    })
+  })
+})
+
+test('max stack size (Id chainRec)', 1, t => {
+  const result = runGenerator(IdRec, function* () {
+    let i = MAX_STACK_SIZE + 2
+    while (i !== 0) {
+      i = yield IdRec.of(i - 1)
+    }
+    return IdRec.of(i)
+  })
+  t.deepEqual(result, IdRec.of(0))
+})
+
+
+test('max stack size (List chain)', 1, t => {
+  t.throws(() => {
+    runGenerator(List, function* () {
+      let i = Math.round(MAX_STACK_SIZE / 5)
+      while (i !== 0) {
+        const x = yield [i - 1, -1]
+        if (x === -1) {
+          return []
+        }
+        i = x
+      }
+      return [i]
+    })
+  })
+})
+
+test('max stack size (List chainRec)', 1, t => {
+  const result = runGenerator(ListRec, function* () {
+    let i = Math.round(MAX_STACK_SIZE / 5)
+    while (i !== 0) {
+      const x = yield [i - 1, -1]
+      if (x === -1) {
+        return []
+      }
+      i = x
+    }
+    return [i]
+  })
+  t.deepEqual(result, [0])
 })

@@ -22,6 +22,15 @@ function getImmutableIterator(generator, maybeIterator = null, history = []) {
 }
 
 const runGenerator = (T, generator) => {
+  if (T.chainRec && T.map) {
+    return T.chainRec((n, d, {value, iterator}) => {
+      const {value: nextValue, next: nextIterator} = iterator(value)
+      return nextIterator
+        ? T.map(x => n({value: x, iterator: nextIterator}), nextValue)
+        : T.map(d, nextValue)
+    }, {value: undefined, iterator: getImmutableIterator(generator)})
+  }
+
   const step = iterator => prevResult => {
     const {value, next} = iterator(prevResult)
     return next
