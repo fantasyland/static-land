@@ -22,8 +22,9 @@ This is something like [Haskell's do notation](https://en.wikibooks.org/wiki/Has
 for Static Land monads based on
 [generators](https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Iterators_and_Generators).
 
-`TypeObject` must contain the [chain](./spec.md#chain) method. The `generator`
-function must `yield` and `return` values that `TypeObject` uses as its values.
+`TypeObject` must implement [ChainRec](./spec.md#chainrec) or [Chain](./spec.md#chain). 
+If `ChainRec` available you can use loops with big number of iterations in the generator. 
+The `generator` function must `yield` and `return` values that `TypeObject` uses as its values.
 
 ```js
 import {runGenerator} from 'static-land'
