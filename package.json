@@ -1,6 +1,6 @@
 {
   "name": "static-land",
-  "version": "0.1.8",
+  "version": "1.0.0",
   "description": "An exploration of alternative approach for dealing with Fantasy Land types in JS",
   "main": "lib/index.js",
   "jsnext:main": "lib-es/index.js",
