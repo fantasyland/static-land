@@ -21,10 +21,10 @@
     "babel-eslint": "6.1.2",
     "babel-polyfill": "6.13.0",
     "eslint": "3.5.0",
-    "lobot": "0.1.21"
+    "lobot": "0.1.22"
   },
   "dependencies": {
-    "fantasy-land": "1.0.0"
+    "fantasy-land": "1.0.1"
   },
   "repository": {
     "type": "git",
