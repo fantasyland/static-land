@@ -57,3 +57,8 @@ Keep in mind that for monads that represent several values (like List or Observa
 the `generator` function may be executed several times, so make sure it's pure.
 For one-or-less-value Monads (like Future or Maybe) it's safe to assume that `generator` function
 executed only once.
+
+Warning: Because of the way JavaScript generators work it's hard to implement `runGenerator()`
+that is at same time work for any monad and resource efficient. 
+This implementation may consume a lot of memory and processor resources in some cases. 
+It's recommended to use it only for educational purposes, and to not use it in real-world programs.
