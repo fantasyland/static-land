@@ -158,7 +158,7 @@ to that of the derivation (or derivations).
 #### Laws
 
   1. Identity: `B.bimap(x => x, x => x, a) ≡ a`
-  1. Composition: `B.bimap(x => f(g(x)), x => h(i(x)), a) ≡ F.bimap(f, h, F.bimap(g, i, a))`
+  1. Composition: `B.bimap(x => f(g(x)), x => h(i(x)), a) ≡ B.bimap(f, h, B.bimap(g, i, a))`
 
 #### Can be derived
 
@@ -178,8 +178,8 @@ to that of the derivation (or derivations).
 
 #### Laws
 
-  1. Identity: `B.promap(x => x, x => x, a) ≡ a`
-  1. Composition: `B.promap(x => f(g(x)), x => h(i(x)), a) ≡ F.promap(g, h, F.promap(f, i, a))`
+  1. Identity: `P.promap(x => x, x => x, a) ≡ a`
+  1. Composition: `P.promap(x => f(g(x)), x => h(i(x)), a) ≡ P.promap(g, h, P.promap(f, i, a))`
 
 #### Can be derived
 
