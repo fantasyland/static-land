@@ -60,6 +60,15 @@ For example:
 We use `≡` symbol in laws to denote equivalence.
 
 
+## Parametricity
+
+If type signature of a method includes unrestricted type variables that method must be
+[parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism)
+in that type variables. Values of that type should not be inspected in any way.
+For example in Functor's `map` method `map :: Functor f => (a → b, f a) → f b`
+type variables `a` and `b` are unrestricted.
+
+
 ## Algebras
 
 An algebra is a set of values (type instances, and other values), a set of operators
