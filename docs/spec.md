@@ -35,10 +35,10 @@ We use syntax similar to Haskell's. You can learn about it from
 This spec uses the following extensions to the type signature syntax:
 
   1. `(a, b) → c` denotes a binary function which is not curried. Same for more arguments.
-  1. `Type a` denotes the [type dictionary](#type) of type `a`.
-     For instance a function with signature `(Type f, f a) → f a` can be called as `fn(F, F.of(1))`.
+  1. `Type a` denotes the [type dictionary](#type) of the type `a`.
+     For instance a function with a signature `(Type f, f a) → f a` can be called as `fn(F, F.of(1))`.
   1. `~>` denotes a property access on a JavaScript object.
-     For example `fn :: Type f ~> (f a) → f a` can be applied as `F.fn(F.of(1))`
+     For example `fn :: Type f ~> (f a) → f a` can be applied as `F.fn(F.of(1))`.
 
 If a method called with incorrect types the behaviour is unspecified.
 Also if a method accepts a function it must only apply the function in accordance with
