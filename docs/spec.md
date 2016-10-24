@@ -44,6 +44,56 @@ If a method called with incorrect types the behaviour is unspecified.
 Also if a method accepts a function it must only apply the function in accordance with
 the type signature (i.e. provide the correct number of arguments of the correct types).
 
+
+## Parametricity
+
+All methods' implementations should only use type information about arguments that is known from the
+method's type signature. It's not allowed to inspect arguments or values that they produce to get
+more information about their types. In other words they should be [parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism).
+
+For example let's take a look at Functor's `map` signature:
+
+```
+map :: Functor f => Type f ~> (a → b, f a) → f b
+```
+
+There are three type variables in it: `f`, `a`, and `b`. Also we have some restrictions:
+
+  1. `Functor f` says that `f a` is a value of a Functor.
+  2. `Type f ~>` means that we're writing implementation of `map`
+     for a [type dictionary](#type) `Type f`. In this case we know what specific
+     types `Type f` works with, so we know everything about `f`.
+
+We don't have any restrictions for types `a` and `b`, so we don't know anything about them.
+And we're not allowed to inspect them.
+
+Here's an example of a correct `map` implementation that works with a simple wrapper `{x: ...}`:
+
+```js
+X.map = (f, v) => {
+  const a = v.x
+  const b = f(a)
+  return {x: b}
+}
+```
+
+And here's one that violates parametricity requirement although fits into type signature otherwise:
+
+```js
+X.map = (f, v) => {
+  const a = v.x
+  const _a = typeof a === 'number' // inspection is not allowed
+    ? a + 1
+    : a
+  const b = f(_a)
+  const _b = Array.isArray(b) // inspection of b is not allowed neither
+    ? []
+    : b
+  return {x: _b}
+}
+```
+
+
 ## Equivalence
 
 An appropriate definition of equivalence for the given value should ensure
@@ -58,15 +108,6 @@ For example:
  - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
 
 We use `≡` symbol in laws to denote equivalence.
-
-
-## Parametricity
-
-If type signature of a method includes unrestricted type variables that method must be
-[parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism)
-in that type variables. Values of that type should not be inspected in any way.
-For example in Functor's `map` method `map :: Functor f => (a → b, f a) → f b`
-type variables `a` and `b` are unrestricted.
 
 
 ## Algebras
