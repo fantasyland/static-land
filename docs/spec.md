@@ -25,7 +25,7 @@ But keep in mind that they are not "methods" in JS sense (they don't use `this`)
 Each method in this spec comes with a type signature, that looks like the following.
 
 ```
-map :: Functor f => (a → b, f a) → f b
+map :: Functor f => Type f ~> (a → b, f a) → f b
 ```
 
 We use syntax similar to Haskell's. You can learn about it from
@@ -35,9 +35,10 @@ We use syntax similar to Haskell's. You can learn about it from
 This spec uses the following extensions to the type signature syntax:
 
   1. `(a, b) → c` denotes a binary function which is not curried. Same for more arguments.
-  1. An upper-case letter denotes the [type object](#type) of the type denoted by the same
-     letter in lower case. For instance a function with type `(F, f) → a`
-     can be called as `fn(F, F.of(1))`.
+  1. `Type a` denotes the [type dictionary](#type) of the type `a`.
+     For instance a function with a signature `(Type f, f a) → f a` can be called as `fn(F, F.of(1))`.
+  1. `~>` denotes a property access on a JavaScript object.
+     For example `fn :: Type f ~> (f a) → f a` can be applied as `F.fn(F.of(1))`.
 
 If a method called with incorrect types the behaviour is unspecified.
 Also if a method accepts a function it must only apply the function in accordance with
@@ -93,7 +94,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `equals :: Setoid s => (s, s) → Boolean`
+  1. `equals :: Setoid s => Type s ~> (s, s) → Boolean`
 
 #### Laws
 
@@ -107,7 +108,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `concat :: Semigroup s => (s, s) → s`
+  1. `concat :: Semigroup s => Type s ~> (s, s) → s`
 
 #### Laws
 
@@ -123,7 +124,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `empty :: Monoid m => () → m`
+  1. `empty :: Monoid m => Type m ~> () → m`
 
 #### Laws
 
@@ -136,7 +137,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `map :: Functor f => (a → b, f a) → f b`
+  1. `map :: Functor f => Type f ~> (a → b, f a) → f b`
 
 #### Laws
 
@@ -153,7 +154,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `bimap :: Bifunctor f => (a → b, c → d, f a c) → f b d`
+  1. `bimap :: Bifunctor f => Type f ~> (a → b, c → d, f a c) → f b d`
 
 #### Laws
 
@@ -174,7 +175,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `promap :: Profunctor f => (a → b, c → d, f b c) → f a d`
+  1. `promap :: Profunctor f => Type f ~> (a → b, c → d, f b c) → f a d`
 
 #### Laws
 
@@ -195,7 +196,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `ap :: Apply f => (f (a → b), f a) → f b`
+  1. `ap :: Apply f => Type f ~> (f (a → b), f a) → f b`
 
 #### Laws
 
@@ -211,7 +212,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `of :: Applicative f => a → f a`
+  1. `of :: Applicative f => Type f ~> a → f a`
 
 #### Laws
 
@@ -233,7 +234,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `chain :: Chain m => (a → m b, m a) → m b`
+  1. `chain :: Chain m => Type m ~> (a → m b, m a) → m b`
 
 #### Laws
 
@@ -253,7 +254,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `chainRec :: ChainRec m => ((a → c, b → c, a) → m c, a) → m b`
+  1. `chainRec :: ChainRec m => Type m ~> ((a → c, b → c, a) → m c, a) → m b`
 
 #### Laws
 
@@ -285,7 +286,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `reduce :: Foldable f => ((a, b) → a, a, f b) → a`
+  1. `reduce :: Foldable f => Type f ~> ((a, b) → a, a, f b) → a`
 
 #### Laws
 
@@ -297,7 +298,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `extend :: Extend e => (e a → b, e a) → e b`
+  1. `extend :: Extend e => Type e ~> (e a → b, e a) → e b`
 
 #### Laws
 
@@ -314,7 +315,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `extract :: Comonad c => c a → a`
+  1. `extract :: Comonad c => Type c ~> c a → a`
 
 #### Laws
 
@@ -333,7 +334,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `traverse :: (Traversable t, Applicative f) => (F, (a → f b), t a) → f (t b)`
+  1. `traverse :: (Traversable t, Applicative f) => Type t ~> (Type f, (a → f b), t a) → f (t b)`
 
 #### Laws
 
