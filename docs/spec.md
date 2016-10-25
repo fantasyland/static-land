@@ -48,7 +48,7 @@ the type signature (i.e. provide the correct number of arguments of the correct 
 ## Parametricity
 
 All methods' implementations should only use type information about arguments that is known from the
-method's type signature. It's not allowed to inspect arguments or values that they produce
+methods' type signatures. It's not allowed to inspect arguments or values that they produce
 or contain to get more information about their types. In other words methods
 should be [parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism).
 
