@@ -48,8 +48,9 @@ the type signature (i.e. provide the correct number of arguments of the correct 
 ## Parametricity
 
 All methods' implementations should only use type information about arguments that is known from the
-method's type signature. It's not allowed to inspect arguments or values that they produce or contain to get
-more information about their types. In other words methods should be [parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism).
+method's type signature. It's not allowed to inspect arguments or values that they produce
+or contain to get more information about their types. In other words methods
+should be [parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism).
 
 For example let's take a look at Functor's `map` signature:
 
@@ -67,29 +68,34 @@ There are three type variables in it: `f`, `a`, and `b`. Also we have some restr
 We don't have any restrictions for types `a` and `b`, so we don't know anything about them.
 And we're not allowed to inspect them.
 
-Here's an example of a correct `map` implementation that works with a simple wrapper `{x: ...}`:
+Here's an implementation of Maybe that
+violates parametricity requirement although fits into type signatures otherwise:
 
 ```js
-X.map = (f, v) => {
-  const a = v.x
-  const b = f(a)
-  return {x: b}
+Maybe.Nothing = {type: 'Nothing'}
+
+Maybe.of = x => {
+  if (x === undefined) { // inspection is not allowed
+    return Maybe.Nothing
+  }
+  return {type: 'Just', value: x}
 }
-```
 
-And here's one that violates parametricity requirement although fits into type signature otherwise:
+Maybe.map = (f, v) => {
 
-```js
-X.map = (f, v) => {
-  const a = v.x
-  const _a = typeof a === 'number' // inspection is not allowed
-    ? a + 1
-    : a
-  const b = f(_a)
-  const _b = Array.isArray(b) // inspection of b is not allowed neither
-    ? []
-    : b
-  return {x: _b}
+  // this is a legitimate inspection of `f a` because we know structure of `f`
+  if (v.type === 'Nothing') {
+    return v
+  }
+
+  const a = v.value
+  const b = f(a)
+
+  if (b === undefined) { // inspection is not allowed
+    return Maybe.Nothing
+  }
+
+  return Maybe.of(b)
 }
 ```
 
