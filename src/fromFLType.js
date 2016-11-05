@@ -5,12 +5,14 @@ function defAvailableMethods(Constructor) {
   if (Constructor[$.of]) result.push('of')
   if (Constructor[$.empty]) result.push('empty')
   if (Constructor[$.chainRec]) result.push('chainRec')
+  if (Constructor[$.zero]) result.push('zero')
   if (Constructor.prototype[$.equals]) result.push('equals')
   if (Constructor.prototype[$.map]) result.push('map')
   if (Constructor.prototype[$.bimap]) result.push('bimap')
   if (Constructor.prototype[$.promap]) result.push('promap')
   if (Constructor.prototype[$.concat]) result.push('concat')
   if (Constructor.prototype[$.ap]) result.push('ap')
+  if (Constructor.prototype[$.alt]) result.push('alt')
   if (Constructor.prototype[$.reduce]) result.push('reduce')
   if (Constructor.prototype[$.traverse]) result.push('traverse')
   if (Constructor.prototype[$.chain]) result.push('chain')
@@ -38,6 +40,7 @@ const promap = (fa, fb, t) => t[$.promap](fa, fb)
 const equals = (ta, tb) => ta[$.equals](tb)
 const concat = (ta, tb) => ta[$.concat](tb)
 const ap = (tf, tx) => tx[$.ap](tf)
+const alt = (ta, tb) => ta[$.alt](tb)
 const reduce = (fn, seed, tx) => tx[$.reduce](fn, seed)
 const chain = (fn, tx) => tx[$.chain](fn)
 const extend = (fn, tx) => tx[$.extend](fn)
@@ -61,6 +64,7 @@ export default function fromFLType(Constructor, availableMethods = defAvailableM
   if (available('equals')) Type.equals = equals
   if (available('concat')) Type.concat = concat
   if (available('ap')) Type.ap = ap
+  if (available('alt')) Type.alt = alt
   if (available('reduce')) Type.reduce = reduce
   if (available('traverse')) Type.traverse = traverse
   if (available('chain')) Type.chain = chain
@@ -68,6 +72,7 @@ export default function fromFLType(Constructor, availableMethods = defAvailableM
   if (available('extract')) Type.extract = extract
   if (available('of')) Type.of = Constructor[$.of]
   if (available('empty')) Type.empty = Constructor[$.empty]
+  if (available('zero')) Type.zero = Constructor[$.zero]
   if (available('chainRec')) Type.chainRec = Constructor[$.chainRec]
 
   return Type
