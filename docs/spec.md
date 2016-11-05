@@ -136,6 +136,9 @@ to that of the derivation (or derivations).
 * [Profunctor](#profunctor)
 * [Apply](#apply)
 * [Applicative](#applicative)
+* [Alt](#alt)
+* [Plus](#plus)
+* [Alternative](#alternative)
 * [Chain](#chain)
 * [ChainRec](#chainrec)
 * [Monad](#monad)
@@ -279,6 +282,55 @@ to that of the derivation (or derivations).
 #### Can be derived
 
   1. Functor's map: `A.map = (f, u) => A.ap(A.of(f), u)`
+
+
+
+## Alt
+
+#### Dependencies
+
+  1. Functor
+
+#### Methods
+
+  1. `alt :: Alt f => Type f ~> (f a, f a) → f a`
+
+### Laws
+
+  1. Associativity: `A.alt(A.alt(a, b), c) ≡ A.alt(a, A.alt(b, c))`
+  2. Distributivity: `A.map(f, A.alt(a, b)) ≡ A.alt(A.map(f, a), A.map(f, b))`
+
+
+
+## Plus
+
+#### Dependencies
+
+  1. Alt
+
+#### Methods
+
+  1. `zero :: Plus f => Type f ~> () → f a`
+
+### Laws
+
+  1. Right identity: `P.alt(a, P.zero()) ≡ a`
+  2. Left identity: `P.alt(P.zero(), a) ≡ a`
+  3. Annihilation: `P.map(f, P.zero()) ≡ P.zero()`
+
+
+
+## Alternative
+
+#### Dependencies
+
+  1. Applicative
+  2. Plus
+
+#### Laws
+
+  1. Distributivity: `A.ap(A.alt(a, b), c) ≡ A.alt(A.ap(a, c), A.ap(b, c))`
+  2. Annihilation: `A.ap(A.zero(), a) ≡ A.zero()`
 
 
 
