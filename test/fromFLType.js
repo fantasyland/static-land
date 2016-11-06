@@ -47,9 +47,6 @@ class Id {
   static 'fantasy-land/of'(x) {
     return new Id(x)
   }
-  'fantasy-land/of'(x) {
-    return new Id(x)
-  }
 
   'fantasy-land/equals'(a) {
     return this.x === a.x
@@ -95,12 +92,43 @@ class Id {
 
 }
 
+
+class List {
+
+  constructor(arr) {
+    this.arr = arr
+  }
+
+  static 'fantasy-land/of'(x) {
+    return new List([x])
+  }
+
+  static 'fantasy-land/zero'() {
+    return new List([])
+  }
+
+  'fantasy-land/map'(f) {
+    return new List(this.arr.map(f))
+  }
+
+  'fantasy-land/ap'(f) {
+    return new List(f.arr.map(f => this.arr.map(f)).reduce((r, i) => r.concat(i), []))
+  }
+
+  'fantasy-land/alt'(b) {
+    return new List(this.arr.concat(b.arr))
+  }
+
+}
+
+
 const SId = fromFLType(Id)
 const SSum = fromFLType(Sum)
 const SPair = fromFLType(Pair)
 const SFn = fromFLType(Fn)
+const SList = fromFLType(List)
 
-test('auto detection of available methods', 14 * 2 + 2, t => {
+test('auto detection of available methods', 14 * 2 + 2 + 5, t => {
   t.equals(typeof SId.of, 'function')
   t.equals(typeof SId.equals, 'function')
   t.equals(typeof SId.map, 'function')
@@ -133,6 +161,12 @@ test('auto detection of available methods', 14 * 2 + 2, t => {
 
   t.equals(typeof SPair.bimap, 'function')
   t.equals(typeof SFn.promap, 'function')
+
+  t.equals(typeof SList.of, 'function')
+  t.equals(typeof SList.map, 'function')
+  t.equals(typeof SList.ap, 'function')
+  t.equals(typeof SList.alt, 'function')
+  t.equals(typeof SList.zero, 'function')
 })
 
 test('manual avalible methods', 12, t => {
@@ -165,6 +199,14 @@ test('map', 1, t => {
 
 test('ap', 1, t => {
   t.equals(SId.ap(SId.of(x => x * 3), SId.of(2)).x, 6)
+})
+
+test('alt', 1, t => {
+  t.deepEqual(SList.alt(SList.of(1), SList.of(2)).arr, [1, 2])
+})
+
+test('zero', 1, t => {
+  t.deepEqual(SList.zero().arr, [])
 })
 
 test('chain', 1, t => {
