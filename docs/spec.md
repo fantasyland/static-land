@@ -29,7 +29,7 @@ map :: Functor f => Type f ~> (a → b, f a) → f b
 ```
 
 We use syntax similar to Haskell's. You can learn about it from
-[Ramda's wiki](https://github.com/ramda/ramda/wiki/Type-Signatures) or from book
+[Ramda's wiki](https://github.com/ramda/ramda/wiki/Type-Signatures) or from the book
 ["Professor Frisby's Mostly Adequate Guide to Functional Programming"](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html)
 
 This spec uses the following extensions to the type signature syntax:
