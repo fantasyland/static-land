@@ -295,7 +295,7 @@ to that of the derivation (or derivations).
 
   1. `alt :: Alt f => Type f ~> (f a, f a) → f a`
 
-### Laws
+#### Laws
 
   1. Associativity: `A.alt(A.alt(a, b), c) ≡ A.alt(a, A.alt(b, c))`
   2. Distributivity: `A.map(f, A.alt(a, b)) ≡ A.alt(A.map(f, a), A.map(f, b))`
@@ -312,7 +312,7 @@ to that of the derivation (or derivations).
 
   1. `zero :: Plus f => Type f ~> () → f a`
 
-### Laws
+#### Laws
 
   1. Right identity: `P.alt(a, P.zero()) ≡ a`
   2. Left identity: `P.alt(P.zero(), a) ≡ a`
