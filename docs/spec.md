@@ -133,7 +133,7 @@ to that of the derivation (or derivations).
 * [Monoid](#monoid)
 * [Functor](#functor)
 * [Bifunctor](#bifunctor)
-* [Contravariant Functor](#contravariant-functor)
+* [Contravariant](#contravariant)
 * [Profunctor](#profunctor)
 * [Apply](#apply)
 * [Applicative](#applicative)
@@ -227,11 +227,11 @@ to that of the derivation (or derivations).
 
 
 
-## Contravariant Functor
+## Contravariant
 
 #### Methods
 
-  1. `contramap :: ContravariantFunctor f => (a → b, f b) → f a`
+  1. `contramap :: Contravariant f => (a → b, f b) → f a`
 
 #### Laws
 
@@ -244,7 +244,6 @@ to that of the derivation (or derivations).
 #### Dependencies
 
   1. Functor
-  2. Contravariant Functor
 
 #### Methods
 
