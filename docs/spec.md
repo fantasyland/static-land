@@ -231,7 +231,7 @@ to that of the derivation (or derivations).
 
 #### Methods
 
-  1. `contramap :: Contravariant f => (a → b, f b) → f a`
+  1. `contramap :: Contravariant f => Type f ~> (a → b, f b) → f a`
 
 #### Laws
 
