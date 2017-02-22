@@ -133,6 +133,7 @@ to that of the derivation (or derivations).
 * [Monoid](#monoid)
 * [Functor](#functor)
 * [Bifunctor](#bifunctor)
+* [Contravariant](#contravariant)
 * [Profunctor](#profunctor)
 * [Apply](#apply)
 * [Applicative](#applicative)
@@ -224,6 +225,18 @@ to that of the derivation (or derivations).
 
   1. Functor's map: `A.map = (f, u) => A.bimap(x => x, f, u)`
 
+
+
+## Contravariant
+
+#### Methods
+
+  1. `contramap :: Contravariant f => Type f ~> (a → b, f b) → f a`
+
+#### Laws
+
+  1. Identity: `F.contramap(x => x, a) ≡ a`
+  1. Composition: `F.contramap(x => f(g(x)), a) ≡ F.contramap(g, F.contramap(f, a))`
 
 
 ## Profunctor
