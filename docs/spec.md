@@ -24,7 +24,7 @@ in this specification a module is just an object.
 ## Module Signature
 
 Module signature describes an interface that a module can match. The syntax is very similar to
-that of Flow or TypeScript. Here is na example of a signature that the `FooModule` above matches:
+that of Flow or TypeScript. Here is an example of a signature that the `FooModule` above matches:
 
 ```js
 Foo {
@@ -61,7 +61,7 @@ Notice that `T` can be a parameterized type as well.
 The number of type variabless of `T` becomes obvious when `T` is used inside the signature.
 
 Also notice that signature level type variables are fixed for a module,
-while function level variable can be substituted with
+while a function level variable can be substituted with
 a different concrete type in each function application.
 In other words we must choose what `T` stands for when we create a module,
 and we must choose what `a` stands for only when we apply `baz` to some value.
@@ -70,7 +70,7 @@ A type signature may be a part of another type signature,
 which means that we should pass a module that matches that signature in that place.
 For example:
 
-``js
+```js
 Baz {
   compute: (a, ParameterizedFoo<a>) => a
 }

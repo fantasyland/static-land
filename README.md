@@ -1,4 +1,4 @@
-# <img width="80" height="50" src="./logo/logo.png" /> static-land
+# <img width="80" height="50" src="./logo/logo.png" /> Static Land
 
 Specification for common algebraic structures in JavaScript
 based on [fantasy-land](https://github.com/fantasyland/fantasy-land).
