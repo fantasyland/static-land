@@ -1,104 +1,87 @@
 # Static Land Specification
 
-This is a specification for common algebraic types in JavaScript based on
-[Fantasy Land Specification](https://github.com/fantasyland/fantasy-land).
+This specification describes JavaScript interfaces and laws
+of algebras that are common in functional languages like Haskell.
 
 
-## Type
+## Module
 
-A type in Static Land is a dictionary (JavaScript object) with static functions as values.
-'Static' means that functions don't use `this`, they can be detached from the type object.
-The type object is just a container for functions.
-
-```js
-const {of, map} = MyType
-
-// This should work
-map(x => x + 1, of(41)) // MyType(42)
-```
-
-Functions from type object are often called "methods" of the type.
-But keep in mind that they are not "methods" in JS sense (they don't use `this`).
-
-## Type signatures
-
-Each method in this spec comes with a type signature, that looks like the following.
-
-```
-map :: Functor f => Type f ~> (a → b, f a) → f b
-```
-
-We use syntax similar to Haskell's. You can learn about it from
-[Ramda's wiki](https://github.com/ramda/ramda/wiki/Type-Signatures) or from the book
-["Professor Frisby's Mostly Adequate Guide to Functional Programming"](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html).
-
-This spec uses the following extensions to the type signature syntax:
-
-  1. `(a, b) → c` denotes a binary function which is not curried. Same for more arguments.
-  1. `Type a` denotes the [type dictionary](#type) of the type `a`.
-     For instance a function with a signature `(Type f, f a) → f a` can be called as `fn(F, F.of(1))`.
-  1. `~>` denotes a property access on a JavaScript object.
-     For example `fn :: Type f ~> (f a) → f a` can be applied as `F.fn(F.of(1))`.
-
-If a method called with incorrect types the behaviour is unspecified.
-Also if a method accepts a function it must only apply the function in accordance with
-the type signature (i.e. provide the correct number of arguments of the correct types).
-
-
-## Parametricity
-
-All methods' implementations should only use type information about arguments that is known from the
-methods' type signatures. It's not allowed to inspect arguments or values that they produce
-or contain to get more information about their types. In other words methods
-should be [parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism).
-
-For example let's take a look at Functor's `map` signature:
-
-```
-map :: Functor f => Type f ~> (a → b, f a) → f b
-```
-
-There are three type variables in it: `f`, `a`, and `b`. Also we have some restrictions:
-
-  1. `Functor f` says that `f a` is a value of a Functor.
-  2. `Type f ~>` means that we're writing implementation of `map`
-     for a [type dictionary](#type) `Type f`. In this case we know what specific
-     types `Type f` works with, so we know everything about `f`.
-
-We don't have any restrictions for types `a` and `b`, so we don't know anything about them.
-And we're not allowed to inspect them.
-
-Here's an implementation of Maybe that
-violates parametricity requirement although fits into type signatures otherwise:
+Module is a JavaScript object, that contains some static functions and values.
+Static means that functions don't use `this`, and when detached from the object work in the same way.
+Here is an example:
 
 ```js
-Maybe.Nothing = {type: 'Nothing'}
-
-Maybe.of = x => {
-  if (x === undefined) { // inspection is not allowed
-    return Maybe.Nothing
-  }
-  return {type: 'Just', value: x}
-}
-
-Maybe.map = (f, v) => {
-
-  // this is a legitimate inspection of `f a` because we know structure of `f`
-  if (v.type === 'Nothing') {
-    return v
-  }
-
-  const a = v.value
-  const b = f(a)
-
-  if (b === undefined) { // inspection is not allowed
-    return Maybe.Nothing
-  }
-
-  return Maybe.of(b)
+const FooModule = {
+  foo: 1,            // a value
+  bar: (x) => x + 1, // a function
 }
 ```
 
+Note that this has nothing to do with JavaScript module systems like ES6 modules,
+in this specification a module is just an object.
+
+
+## Module Signature
+
+Module signature describes an interface that a module can match. The syntax is very similar to
+that of Flow or TypeScript. Here is na example of a signature that the `FooModule` above matches:
+
+```js
+Foo {
+  foo: number,
+  bar: (number) => number
+}
+```
+
+A signature can be parameterized by a type, which looks like this:
+
+```js
+ParameterizedFoo<T> {
+  foo: T,
+  bar: (T) => T
+}
+```
+
+A module matches a parameterized signature, if there is some concrete type such that if we
+substitute all occurrences of `T` in the signature with that type,
+the module will match resulting signature.
+For example if we substitute `T` in `ParameterizedFoo` with `number` we get a signature
+that `FooModule` matches, therefore `FooModule` matches `ParameterizedFoo`.
+
+Also functions in a signature can have type variables.
+Any single lower-case letter in a function type is a type variable. For instance:
+
+```js
+Bar<T> {
+  baz: (a) => T<a>
+}
+```
+
+Notice that `T` can be a parameterized type as well.
+The number of type variabless of `T` becomes obvious when `T` is used inside the signature.
+
+Also notice that signature level type variables are fixed for a module,
+while function level variable can be substituted with
+a different concrete type in each function application.
+In other words we must choose what `T` stands for when we create a module,
+and we must choose what `a` stands for only when we apply `baz` to some value.
+
+A type signature may be a part of another type signature,
+which means that we should pass a module that matches that signature in that place.
+For example:
+
+``js
+Baz {
+  compute: (a, ParameterizedFoo<a>) => a
+}
+```
+
+The above means that when we apply `compute` to say `number` we must pass
+as the second argument a module that matches `ParameterizedFoo` with `T=number`, like so:
+
+```js
+someBaz.compute(10, FooModule)
+```
 
 ## Equivalence
 
@@ -113,20 +96,30 @@ For example:
  - Two promises are equivalent when they yield equivalent values.
  - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
 
+Note that these examples are not universal, in some cases differnet
+definitions of equivalense for that types might be more appropriate.
+It depends on which exact abstractions you choose to use in a program.
+
 We use `≡` symbol in laws to denote equivalence.
 
 
-## Algebras
+## Parametricity
 
-An algebra is a set of values (type instances, and other values), a set of operators
-(type methods) that it is closed under and some laws it must obey.
+All methods' implementations should only use type information about arguments that is known from the signatures.
+It's not allowed to inspect arguments or values that they produce
+or contain to get more information about their types. In other words methods
+should be [parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism).
 
-Each algebra is a separate specification.
-An algebra may have dependencies on other algebras which must be implemented.
+
+## Algebra
+
+Algebra is a set of requirements for modules, like to match some signature and to obey some laws.
+If a module satisfies all requirements of an algebra it supports that algebra.
+An algebra may require to support other algebras.
 
 An algebra may also state other algebra methods which can be derived from new methods.
-If a type provides a method which could be derived, its behaviour must be equivalent
-to that of the derivation (or derivations).
+If a module provides a method which could be derived, its behaviour must be
+equivalent to that of the derivation (or derivations).
 
 * [Setoid](#setoid)
 * [Semigroup](#semigroup)
@@ -149,74 +142,76 @@ to that of the derivation (or derivations).
 * [Traversable](#traversable)
 
 
+### Setoid
 
-## Setoid
+```js
+Setoid<T> {
+  equals: (T, T) => boolean
+}
+```
 
-#### Methods
-
-  1. `equals :: Setoid s => Type s ~> (s, s) → Boolean`
-
-#### Laws
+Module must match the `Setoid` signature for some type `T`, and obey following laws:
 
   1. Reflexivity: `S.equals(a, a) === true`
   1. Symmetry: `S.equals(a, b) === S.equals(b, a)`
   1. Transitivity: if `S.equals(a, b)` and `S.equals(b, c)`, then `S.equals(a, c)`
 
 
+### Semigroup
 
-## Semigroup
+```js
+Semigroup<T> {
+  concat: (T, T) => T
+}
+```
 
-#### Methods
-
-  1. `concat :: Semigroup s => Type s ~> (s, s) → s`
-
-#### Laws
+Module must match the `Semigroup` signature for some type `T`, and obey following laws:
 
   1. Associativity: `S.concat(S.concat(a, b), c) ≡ S.concat(a, S.concat(b, c))`
 
 
+### Monoid
 
-## Monoid
+```js
+Monoid<T> {
+  empty: () => T
+}
+```
 
-#### Dependencies
-
-  1. Semigroup
-
-#### Methods
-
-  1. `empty :: Monoid m => Type m ~> () → m`
-
-#### Laws
+Module must match the `Monoid` signature for some type `T`,
+support `Semigroup` algebra for the same `T`, and obey following laws:
 
   1. Right identity: `M.concat(a, M.empty()) ≡ a`
   1. Left identity: `M.concat(M.empty(), a) ≡ a`
 
 
+### Functor
 
-## Functor
+```js
+Functor<T> {
+  map: (a => b, T<a>) => T<b>
+}
+```
 
-#### Methods
-
-  1. `map :: Functor f => Type f ~> (a → b, f a) → f b`
-
-#### Laws
+Module must match the `Functor` signature for some type `T`, and obey following laws:
 
   1. Identity: `F.map(x => x, a) ≡ a`
   1. Composition: `F.map(x => f(g(x)), a) ≡ F.map(f, F.map(g, a))`
 
 
 
-## Bifunctor
+### Bifunctor
 
-#### Dependencies
+```js
+Bifunctor<T> {
+  bimap: (a => b, c => d, T<a, c>) => T<b, d>
+}
+```
 
-  1. Functor
-
-#### Methods
-
-  1. `bimap :: Bifunctor f => Type f ~> (a → b, c → d, f a c) → f b d`
-
-#### Laws
+Module must match the `Bifunctor` signature for some type `T`,
+support `Functor` algebra for all types `U` created by setting the first parameter of `T`
+to an arbitrary concrete type (for example `type U<a> = T<number, a>`),
+and obey following laws:
 
   1. Identity: `B.bimap(x => x, x => x, a) ≡ a`
   1. Composition: `B.bimap(x => f(g(x)), x => h(i(x)), a) ≡ B.bimap(f, h, B.bimap(g, i, a))`
@@ -227,29 +222,32 @@ to that of the derivation (or derivations).
 
 
 
-## Contravariant
+### Contravariant
 
-#### Methods
+```js
+Contravariant<T> {
+  contramap: (a => b, T<b>) => T<a>
+}
+```
 
-  1. `contramap :: Contravariant f => Type f ~> (a → b, f b) → f a`
-
-#### Laws
+Module must match the `Contravariant` signature for some type `T`, and obey following laws:
 
   1. Identity: `F.contramap(x => x, a) ≡ a`
   1. Composition: `F.contramap(x => f(g(x)), a) ≡ F.contramap(g, F.contramap(f, a))`
 
 
-## Profunctor
+### Profunctor
 
-#### Dependencies
+```js
+Profunctor {
+  promap: (a => b, c => d, T<b, c>) => T<a, d>
+}
+```
 
-  1. Functor
-
-#### Methods
-
-  1. `promap :: Profunctor f => Type f ~> (a → b, c → d, f b c) → f a d`
-
-#### Laws
+Module must match the `Profunctor` signature for some type `T`,
+support `Functor` algebra for all types `U` created by setting the first parameter of `T`
+to an arbitrary concrete type (for example `type U<a> = T<number, a>`),
+and obey following laws:
 
   1. Identity: `P.promap(x => x, x => x, a) ≡ a`
   1. Composition: `P.promap(x => f(g(x)), x => h(i(x)), a) ≡ P.promap(g, h, P.promap(f, i, a))`
@@ -260,33 +258,31 @@ to that of the derivation (or derivations).
 
 
 
-## Apply
+### Apply
 
-#### Dependencies
+```js
+Apply<T> {
+  ap: (T<a => b>, T<a>) => T<b>
+}
+```
 
-  1. Functor
-
-#### Methods
-
-  1. `ap :: Apply f => Type f ~> (f (a → b), f a) → f b`
-
-#### Laws
+Module must match the `Apply` signature for some type `T`,
+support `Functor` algebra for the same `T`, and obey following laws:
 
   1. Composition: `A.ap(A.ap(A.map(f => g => x => f(g(x)), a), u), v) ≡ A.ap(a, A.ap(u, v))`
 
 
 
-## Applicative
+### Applicative
 
-#### Dependencies
+```js
+Applicative<T> {
+  of: (a) => T<a>
+}
+```
 
-  1. Apply
-
-#### Methods
-
-  1. `of :: Applicative f => Type f ~> a → f a`
-
-#### Laws
+Module must match the `Applicative` signature for some type `T`,
+support `Apply` algebra for the same `T`, and obey following laws:
 
   1. Identity: `A.ap(A.of(x => x), v) ≡ v`
   1. Homomorphism: `A.ap(A.of(f), A.of(x)) ≡ A.of(f(x))`
@@ -298,34 +294,32 @@ to that of the derivation (or derivations).
 
 
 
-## Alt
+### Alt
 
-#### Dependencies
+```js
+Alt<T> {
+  alt: (T<a>, T<a>) => T<a>
+}
+```
 
-  1. Functor
-
-#### Methods
-
-  1. `alt :: Alt f => Type f ~> (f a, f a) → f a`
-
-#### Laws
+Module must match the `Alt` signature for some type `T`,
+support `Functor` algebra for the same `T`, and obey following laws:
 
   1. Associativity: `A.alt(A.alt(a, b), c) ≡ A.alt(a, A.alt(b, c))`
   2. Distributivity: `A.map(f, A.alt(a, b)) ≡ A.alt(A.map(f, a), A.map(f, b))`
 
 
 
-## Plus
+### Plus
 
-#### Dependencies
+```js
+Plus<T> {
+  zero: () => T<a>
+}
+```
 
-  1. Alt
-
-#### Methods
-
-  1. `zero :: Plus f => Type f ~> () → f a`
-
-#### Laws
+Module must match the `Plus` signature for some type `T`,
+support `Alt` algebra for the same `T`, and obey following laws:
 
   1. Right identity: `P.alt(a, P.zero()) ≡ a`
   2. Left identity: `P.alt(P.zero(), a) ≡ a`
@@ -333,31 +327,26 @@ to that of the derivation (or derivations).
 
 
 
-## Alternative
+### Alternative
 
-#### Dependencies
-
-  1. Applicative
-  2. Plus
-
-#### Laws
+Module must support `Applicative` and `Plus` algebras for a same `T`,
+and obey following laws:
 
   1. Distributivity: `A.ap(A.alt(a, b), c) ≡ A.alt(A.ap(a, c), A.ap(b, c))`
   2. Annihilation: `A.ap(A.zero(), a) ≡ A.zero()`
 
 
 
-## Chain
+### Chain
 
-#### Dependencies
+```js
+Chain<T> {
+  chain: (a => T<b>, T<a>) => T<b>
+}
+```
 
-  1. Apply
-
-#### Methods
-
-  1. `chain :: Chain m => Type m ~> (a → m b, m a) → m b`
-
-#### Laws
+Module must match the `Chain` signature for some type `T`,
+support `Apply` algebra for the same `T`, and obey following laws:
 
   1. Associativity: `M.chain(g, M.chain(f, u)) ≡ M.chain(x => M.chain(g, f(x)), u)`
 
@@ -367,31 +356,26 @@ to that of the derivation (or derivations).
 
 
 
-## ChainRec
+### ChainRec
 
-#### Dependencies
+```js
+ChainRec<T> {
+  chainRec: ((a => c, b => c, a) => T<c>, a) => T<b>
+}
+```
 
-  1. Chain
-
-#### Methods
-
-  1. `chainRec :: ChainRec m => Type m ~> ((a → c, b → c, a) → m c, a) → m b`
-
-#### Laws
+Module must match the `ChainRec` signature for some type `T`,
+support `Chain` algebra for the same `T`, and obey following laws:
 
   1. Equivalence: `C.chainRec((next, done, v) => p(v) ? C.map(done, d(v)) : C.map(next, n(v)), i) ≡ (function step(v) { return p(v) ? d(v) : C.chain(step, n(v)) }(i))`
   2. Stack usage of `C.chainRec(f, i)` must be at most a constant multiple of the stack usage of `f` itself.
 
 
 
-## Monad
+### Monad
 
-#### Dependencies
-
-  1. Applicative
-  1. Chain
-
-#### Laws
+Module must support `Applicative` and `Chain` algebras for a same `T`,
+and obey following laws:
 
   1. Left identity: `M.chain(f, M.of(a)) ≡ f(a)`
   1. Right identity: `M.chain(M.of, u) ≡ u`
@@ -402,41 +386,46 @@ to that of the derivation (or derivations).
 
 
 
+### Foldable
 
-## Foldable
+```js
+Foldable<T> {
+  reduce: ((a, b) => a, a, T<b>) => a
+}
+```
 
-#### Methods
-
-  1. `reduce :: Foldable f => Type f ~> ((a, b) → a, a, f b) → a`
-
-#### Laws
+Module must match the `Foldable` signature for some type `T`,
+and obey following laws:
 
   1. `F.reduce ≡ (f, x, u) => F.reduce((acc, y) => acc.concat([y]), [], u).reduce(f, x)`
 
 
 
-## Extend
+### Extend
 
-#### Methods
+```js
+Extend<T> {
+  extend: (T<a> => b, T<a>) => T<b>
+}
+```
 
-  1. `extend :: Extend e => Type e ~> (e a → b, e a) → e b`
-
-#### Laws
+Module must match the `Extend` signature for some type `T`,
+and obey following laws:
 
   1. Associativity: `E.extend(f, E.extend(g, w)) ≡ E.extend(_w => f(E.extend(g, _w)), w)`
 
 
 
-## Comonad
+### Comonad
 
-#### Dependencies
+```js
+Comonad<T> {
+  extract: (T<a>) => a
+}
+```
 
-  1. Functor
-  1. Extend
-
-#### Methods
-
-  1. `extract :: Comonad c => Type c ~> c a → a`
+Module must match the `Comonad` signature for some type `T`,
+support `Functor` and `Extend` algebras for the same `T`, and obey following laws:
 
 #### Laws
 
@@ -446,18 +435,19 @@ to that of the derivation (or derivations).
 
 
 
-## Traversable
+### Traversable
 
-#### Dependencies
+In the following signature `Applicative<U>` means that a value must
+not only match `Applicative` signature, but also fully support `Applicative` algebra.
 
-  1. Functor
-  1. Foldable
+```js
+Traversable<T> {
+  traverse: (Applicative<U>, a => U<b>, T<a>) => U<T<b>>
+}
+```
 
-#### Methods
-
-  1. `traverse :: (Traversable t, Applicative f) => Type t ~> (Type f, (a → f b), t a) → f (t b)`
-
-#### Laws
+Module must match the `Traversable` signature for some type `T`,
+support `Functor` and `Foldable` algebras for the same `T`, and obey following laws:
 
   1. Naturality: `f(T.traverse(A, x => x, u)) ≡ T.traverse(B, f, u)` for any `f` such that `B.map(g, f(a)) ≡ f(A.map(g, a))`
   2. Identity: `T.traverse(F, F.of, u) ≡ F.of(u)` for any Applicative `F`

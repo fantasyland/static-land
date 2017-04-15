@@ -1,21 +1,21 @@
-# <img width="80" height="50" src="./logo/logo.png" /> Static Land
+# <img width="80" height="50" src="./logo/logo.png" /> static-land
 
-Specification for common algebraic types in JavaScript
-based on [Fantasy Land](https://github.com/fantasyland/fantasy-land).
+Specification for common algebraic structures in JavaScript
+based on [fantasy-land](https://github.com/fantasyland/fantasy-land).
 
 * [Specification](docs/spec.md)
 
-### Difference from Fantasy Land
+### Difference from fantasy-land
 
-Fantasy Land uses methods as a base for types. A type instance in Fantasy Land
+Fantasy-land uses methods as a base for types. A type instance in fantasy-land
 is an object with certain methods. For example a Functor type instance must be an object
-that has a `map` method.
+that has a `fantasy-land/map` method.
 
-In Static Land a type is just a collection of static functions, and instances
+In static-land we use static functions, and instances
 of a type can be any values, including primitives (Number, Boolean, etc.)
 
-For example we can implement an Addition type that uses numbers as its instances
-and satisfies the Monoid laws:
+For example we can implement an Addition module that uses numbers as values
+and satisfies the Monoid algebra laws:
 
 ```js
 const Addition = {
@@ -37,28 +37,25 @@ const Addition = {
     share any namespace we don't have problems with name clashes.
   - We can implement many types for same values. For example we can implement
     two Monoids for numbers: Addition and Multiplication.
-  - We can implement types with primitives (Number, Boolean, etc.) as values.
-  - We can implement seamless types. For example we can make a type with
-    arrays as values, and user won't have to wrap/unwrap values to some
-    wrapper class with Fantasy Land methods.
+  - We can implement modules that work with primitives (Number, Boolean, etc.) as values.
 
 #### Cons
 
-  - We have to pass around types more often.
-    In Fantasy Land some generic code can be written using only methods,
-    we have to pass types only for `of` and `empty`. In Static Land we have
-    to pass types for any generic code.
+  - We have to pass around modules more often.
+    In fantasy-land most of generic code can be written using only methods,
+    we have to pass types representatives only for `of` and `empty`. In static-land we have
+    to pass around modules for any generic code.
 
-### How to add compatibility with Static Land to your library
+### How to add compatibility with static-land to your library
 
-Simply expose some [Type Objects](docs/spec.md#type) that work with types that your library provides or with types defined in another library or with native types like Array.
+Simply expose some [module](docs/spec.md#module) that work with types that your library provides or with types defined in another library or with native types like Array.
 
-Type Objects don't have to be simple JavaScript objects; they can also be constructors if desired. The only requirements are:
+Modules don't have to be simple JavaScript objects; they can also be constructors if desired. The only requirements are:
 
-- this object contains some static methods from Static Land; and
-- if it contains a method with one of the names that Static Land reserves, that method must be a Static Land method (obey laws etc.).
+- this object contains some static methods from static-land; and
+- if it contains a method with one of the names that static-land reserves, that method must be a static-land method (obey laws etc.).
 
-#### Example 1. Static Land type for Array
+#### Example 1. static-land module for Array
 
 ```js
 const SArray = {
@@ -80,7 +77,7 @@ const SArray = {
 export {SArray}
 ```
 
-#### Example 2. Static Land type as a Class
+#### Example 2. static-land module as a Class
 
 ```js
 class MyType = {
@@ -98,7 +95,7 @@ class MyType = {
   }
 
 
-  // Static Land methods
+  // static-land methods
 
   static of(x) {
     // ...
