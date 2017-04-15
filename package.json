@@ -1,7 +1,7 @@
 {
   "name": "static-land",
   "version": "1.0.0",
-  "description": "An exploration of alternative approach for dealing with Fantasy Land types in JS",
+  "description": "",
   "main": "lib/index.js",
   "jsnext:main": "lib-es/index.js",
   "files": [
@@ -22,9 +22,6 @@
     "babel-polyfill": "6.13.0",
     "eslint": "3.5.0",
     "lobot": "0.1.22"
-  },
-  "dependencies": {
-    "fantasy-land": "^2.1.0"
   },
   "repository": {
     "type": "git",
