@@ -96,7 +96,7 @@ For example:
  - Two promises are equivalent when they yield equivalent values.
  - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
 
-Note that these examples are not universal, in some cases differnet
+Note that these examples are not universal, in some cases different
 definitions of equivalense for that types might be more appropriate.
 It depends on which exact abstractions you choose to use in a program.
 
