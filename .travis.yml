@@ -3,4 +3,4 @@ sudo: false
 node_js:
   - "5"
 script:
-  - npm run lint && npm run lobot -- test coveralls
+  - npm test
