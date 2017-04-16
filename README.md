@@ -15,7 +15,7 @@ In Static Land, we use static functions, and instances
 of a type can be any values, including primitives (Number, Boolean, etc.)
 
 For example we can implement an Addition module that uses numbers as values
-and satisfies the Monoid algebra laws:
+and satisfies the Monoid algebra requirements:
 
 ```js
 const Addition = {
