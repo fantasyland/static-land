@@ -1,13 +1,14 @@
 # Static Land Specification
 
-This specification describes JavaScript interfaces and laws
-of algebras that are common in functional languages like Haskell.
+This specification describes a set of JavaScript interfaces and algebraic laws
+that are common in some other functional languages like Haskell.
 
 
 ## Module
 
-Module is a JavaScript object, that contains some static functions and values.
-Static means that functions don't use `this`, and when detached from the object work in the same way.
+A module is a JavaScript object with some static functions and/or values,
+"static" meaning they don't use `this`.
+
 Here is an example:
 
 ```js

@@ -11,7 +11,7 @@ Fantasy-land uses methods as a base for types. A type instance in Fantasy Land
 is an object with certain methods. For example a Functor type instance must be an object
 that has a `fantasy-land/map` method.
 
-In Static Land we use static functions, and instances
+In Static Land, we use static functions, and instances
 of a type can be any values, including primitives (Number, Boolean, etc.)
 
 For example we can implement an Addition module that uses numbers as values
@@ -48,7 +48,7 @@ const Addition = {
 
 ### How to add compatibility with Static Land to your library
 
-Simply expose some [module](docs/spec.md#module) that work with types that your library provides or with types defined in another library or with native types like Array.
+Simply expose a [module](docs/spec.md#module) that work with types that your library provides or with types defined in another library or with native types like Array.
 
 Modules don't have to be simple JavaScript objects; they can also be constructors if desired. The only requirements are:
 
