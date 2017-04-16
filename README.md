@@ -1,13 +1,13 @@
 # <img width="80" height="50" src="./logo/logo.png" /> Static Land
 
 Specification for common algebraic structures in JavaScript
-based on [Fantasy Land](https://github.com/fantasyland/Fantasy Land).
+based on [Fantasy Land](https://github.com/fantasyland/fantasy-land).
 
 * [Specification](docs/spec.md)
 
 ### Difference from Fantasy Land
 
-Fantasy-land uses methods as a base for types. A type instance in Fantasy Land
+Fantasy Land uses methods as a base for types. A type instance in Fantasy Land
 is an object with certain methods. For example a Functor type instance must be an object
 that has a `fantasy-land/map` method.
 
