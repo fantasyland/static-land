@@ -438,8 +438,10 @@ support `Functor` and `Extend` algebras for the same `T`, and obey following law
 
 ### Traversable
 
-In the following signature `Applicative<U>` means that a value must
-not only match `Applicative` signature, but also fully support `Applicative` algebra.
+In the following signature `Applicative<U>` stands for a module that must support
+`Applicative` algebra for some type `U` that `a => U<b>` returns.
+For example if the second argument of `traverse()` is a function that returns `Array`,
+than first argument must be a module that supports `Applicative` for `Array`.
 
 ```js
 Traversable<T> {
