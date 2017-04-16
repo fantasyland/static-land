@@ -1,17 +1,17 @@
 # <img width="80" height="50" src="./logo/logo.png" /> Static Land
 
 Specification for common algebraic structures in JavaScript
-based on [fantasy-land](https://github.com/fantasyland/fantasy-land).
+based on [Fantasy Land](https://github.com/fantasyland/Fantasy Land).
 
 * [Specification](docs/spec.md)
 
-### Difference from fantasy-land
+### Difference from Fantasy Land
 
-Fantasy-land uses methods as a base for types. A type instance in fantasy-land
+Fantasy-land uses methods as a base for types. A type instance in Fantasy Land
 is an object with certain methods. For example a Functor type instance must be an object
 that has a `fantasy-land/map` method.
 
-In static-land we use static functions, and instances
+In Static Land we use static functions, and instances
 of a type can be any values, including primitives (Number, Boolean, etc.)
 
 For example we can implement an Addition module that uses numbers as values
@@ -42,20 +42,20 @@ const Addition = {
 #### Cons
 
   - We have to pass around modules more often.
-    In fantasy-land most of generic code can be written using only methods,
-    we have to pass types representatives only for `of` and `empty`. In static-land we have
+    In Fantasy Land most of generic code can be written using only methods,
+    we have to pass types representatives only for `of` and `empty`. In Static Land we have
     to pass around modules for any generic code.
 
-### How to add compatibility with static-land to your library
+### How to add compatibility with Static Land to your library
 
 Simply expose some [module](docs/spec.md#module) that work with types that your library provides or with types defined in another library or with native types like Array.
 
 Modules don't have to be simple JavaScript objects; they can also be constructors if desired. The only requirements are:
 
-- this object contains some static methods from static-land; and
-- if it contains a method with one of the names that static-land reserves, that method must be a static-land method (obey laws etc.).
+- this object contains some static methods from Static Land; and
+- if it contains a method with one of the names that Static Land reserves, that method must be a Static Land method (obey laws etc.).
 
-#### Example 1. static-land module for Array
+#### Example 1. Static Land module for Array
 
 ```js
 const SArray = {
@@ -77,7 +77,7 @@ const SArray = {
 export {SArray}
 ```
 
-#### Example 2. static-land module as a Class
+#### Example 2. Static Land module as a Class
 
 ```js
 class MyType = {
@@ -95,7 +95,7 @@ class MyType = {
   }
 
 
-  // static-land methods
+  // Static Land methods
 
   static of(x) {
     // ...
