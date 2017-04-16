@@ -361,7 +361,7 @@ support `Apply` algebra for the same `T`, and obey following laws:
 
 ```js
 ChainRec<T> {
-  chainRec: ((a => c, b => c, a) => T<c>, a) => T<b>
+  chainRec: ((a => Next<a>, b => Done<b>, a) => T<Next<a> | Done<b>>, a) => T<b>
 }
 ```
 
