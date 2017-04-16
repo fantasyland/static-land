@@ -240,7 +240,7 @@ Module must match the `Contravariant` signature for some type `T`, and obey foll
 ### Profunctor
 
 ```js
-Profunctor {
+Profunctor<T> {
   promap: (a => b, c => d, T<b, c>) => T<a, d>
 }
 ```
