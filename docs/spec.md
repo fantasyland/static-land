@@ -59,7 +59,7 @@ Bar<T> {
 ```
 
 Notice that `T` can be a parameterized type as well.
-The number of type variabless of `T` becomes obvious when `T` is used inside the signature.
+The number of type variables of `T` becomes obvious when `T` is used inside the signature.
 
 Also notice that signature level type variables are fixed for a module,
 while a function level variable can be substituted with
