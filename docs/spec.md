@@ -123,6 +123,7 @@ If a module provides a method which could be derived, its behaviour must be
 equivalent to that of the derivation (or derivations).
 
 * [Setoid](#setoid)
+* [Ord](#ord)
 * [Semigroup](#semigroup)
 * [Monoid](#monoid)
 * [Functor](#functor)
@@ -156,6 +157,22 @@ Module must match the `Setoid` signature for some type `T`, and obey following l
   1. Reflexivity: `S.equals(a, a) === true`
   1. Symmetry: `S.equals(a, b) === S.equals(b, a)`
   1. Transitivity: if `S.equals(a, b)` and `S.equals(b, c)`, then `S.equals(a, c)`
+
+
+### Ord
+
+```js
+Ord<T> {
+  lte: (T, T) => boolean
+}
+```
+
+Module must match the `Ord` signature for some type `T`, 
+support `Setoid` algebra for the same `T`, and obey following laws:
+
+  1. Totality: `S.lte(a, b)` or `S.lte(b, a)`
+  1. Antisymmetry: if `S.lte(a, b)` and `S.lte(b, a)`, then `S.equals(a, b)`
+  1. Transitivity: if `S.lte(a, b)` and `S.lte(b, c)`, then `S.lte(a, c)`
 
 
 ### Semigroup
