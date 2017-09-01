@@ -442,8 +442,7 @@ Comonad<T> {
 }
 ```
 
-Module must match the `Comonad` signature for some type `T`,
-support `Extend` algebra for the same `T`, and obey following laws:
+Module must match the `Comonad` signature for some type `T`, support `Extend` algebra for the same `T`, and obey following laws:
 
 #### Laws
 
