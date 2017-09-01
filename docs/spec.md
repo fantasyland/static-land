@@ -446,8 +446,8 @@ Module must match the `Comonad` signature for some type `T`, support `Extend` al
 
 #### Laws
 
-  1. `C.extend(C.extract, w) ≡ w`
-  1. `C.extract(C.extend(f, w)) ≡ f(w)`
+  1. Left identity: `C.extend(C.extract, w) ≡ w`
+  1. Right identity: `C.extract(C.extend(f, w)) ≡ f(w)`
 
 
 
