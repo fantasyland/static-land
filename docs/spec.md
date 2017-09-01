@@ -427,7 +427,7 @@ Extend<T> {
 }
 ```
 
-Module must match the `Extend` signature for some type `T`,
+Module must match the `Extend` signature for some type `T`, support `Functor` algebra for the same `T`,
 and obey following laws:
 
   1. Associativity: `E.extend(f, E.extend(g, w)) ≡ E.extend(_w => f(E.extend(g, _w)), w)`
@@ -443,13 +443,12 @@ Comonad<T> {
 ```
 
 Module must match the `Comonad` signature for some type `T`,
-support `Functor` and `Extend` algebras for the same `T`, and obey following laws:
+support `Extend` algebra for the same `T`, and obey following laws:
 
 #### Laws
 
   1. `C.extend(C.extract, w) ≡ w`
   1. `C.extract(C.extend(f, w)) ≡ f(w)`
-  1. `C.extend(f, w) ≡ C.map(f, C.extend(x => x, w))`
 
 
 
