@@ -167,7 +167,7 @@ Ord<T> {
 }
 ```
 
-Module must match the `Ord` signature for some type `T`, 
+Module must match the `Ord` signature for some type `T`,
 support `Setoid` algebra for the same `T`, and obey following laws:
 
   1. Totality: `S.lte(a, b)` or `S.lte(b, a)`
@@ -469,30 +469,32 @@ support `Functor` and `Foldable` algebras for the same `T`, and obey following l
 
   1. Naturality: `f(T.traverse(A, x => x, u)) ≡ T.traverse(B, f, u)` for any `f` such that `B.map(g, f(a)) ≡ f(A.map(g, a))`
   2. Identity: `T.traverse(F, F.of, u) ≡ F.of(u)` for any Applicative `F`
-  3. Composition: `T.traverse(ComposeAB, x => x, u) ≡ A.map(v => T.traverse(B, x => x, v), T.traverse(A, x => x, u))` for `ComposeAB` defined bellow and for any Applicatives `A` and `B`
+  3. Composition: `T.traverse(Compose(A, B), x => x, u) ≡ A.map(v => T.traverse(B, x => x, v), T.traverse(A, x => x, u))` for `Compose` defined bellow and for any Applicatives `A` and `B`
 
 ```js
-const ComposeAB = {
+function Compose(A, B) {
+  return {
 
-  of(x) {
-    return A.of(B.of(x))
-  },
+    of(x) {
+      return A.of(B.of(x))
+    },
 
-  ap(a1, a2) {
-    return A.ap(A.map(b1 => b2 => B.ap(b1, b2), a1), a2)
-  },
+    ap(a1, a2) {
+      return A.ap(A.map(b1 => b2 => B.ap(b1, b2), a1), a2)
+    },
 
-  map(f, a) {
-    return A.map(b => B.map(f, b), a)
-  },
+    map(f, a) {
+      return A.map(b => B.map(f, b), a)
+    },
 
+  }
 }
 ```
 
 #### Can be derived
 
   1. Foldable's reduce:
-    
+
   ```js
   F.reduce = (f, acc, u) => {
     const of = () => acc
@@ -503,7 +505,7 @@ const ComposeAB = {
   ```
 
   2. Functor's map:
-    
+
   ```js
   F.map = (f, u) => {
     const of = (x) => x
