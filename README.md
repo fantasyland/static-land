@@ -37,7 +37,8 @@ const Addition = {
   - No name clashes. Since a module is just a collection of functions that don't
     share any namespace we don't have problems with name clashes.
   - We can implement many modules for one type, therefore we can have more than
-    one Algebra for one type. For example, we can implement two Monoids for numbers: Addition and Multiplication.
+    one instance of the same Algebra for a single type. For example, we can
+    implement two Monoids for numbers: Addition and Multiplication.
   - We can implement modules that work with built-in types as values (Number,
     Boolean, Array, etc).
 
