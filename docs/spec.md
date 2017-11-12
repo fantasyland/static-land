@@ -50,16 +50,17 @@ For example if we substitute `T` in `ParameterizedFoo` with `number` we get a si
 that `FooModule` matches, therefore `FooModule` matches `ParameterizedFoo`.
 
 Also functions in a signature can have type variables.
-Any single lower-case letter in a function type is a type variable. For instance:
+These variables are specified in `<>` at the beginning of a function type.
+For instance:
 
 ```js
 Bar<T> {
-  baz: (a) => T<a>
+  baz: <a>(a) => T<a>
 }
 ```
 
-Notice that `T` can be a parameterized type as well.
-The number of type variables of `T` becomes obvious when `T` is used inside the signature.
+Notice that `T` can be parameterized as well.
+The number of type variables of `T` becomes unambiguous when `T` is used inside the signature.
 
 Also notice that signature level type variables are fixed for a module,
 while a function level variable can be substituted with
@@ -73,7 +74,7 @@ For example:
 
 ```js
 Baz {
-  compute: (a, ParameterizedFoo<a>) => a
+  compute: <a>(a, ParameterizedFoo<a>) => a
 }
 ```
 
@@ -207,7 +208,7 @@ support `Semigroup` algebra for the same `T`, and obey following laws:
 
 ```js
 Functor<T> {
-  map: (a => b, T<a>) => T<b>
+  map: <a, b>(a => b, T<a>) => T<b>
 }
 ```
 
@@ -222,7 +223,7 @@ Module must match the `Functor` signature for some type `T`, and obey following 
 
 ```js
 Bifunctor<T> {
-  bimap: (a => b, c => d, T<a, c>) => T<b, d>
+  bimap: <a, b, c, d>(a => b, c => d, T<a, c>) => T<b, d>
 }
 ```
 
@@ -244,7 +245,7 @@ and obey following laws:
 
 ```js
 Contravariant<T> {
-  contramap: (a => b, T<b>) => T<a>
+  contramap: <a, b>(a => b, T<b>) => T<a>
 }
 ```
 
@@ -258,7 +259,7 @@ Module must match the `Contravariant` signature for some type `T`, and obey foll
 
 ```js
 Profunctor<T> {
-  promap: (a => b, c => d, T<b, c>) => T<a, d>
+  promap: <a, b, c, d>(a => b, c => d, T<b, c>) => T<a, d>
 }
 ```
 
@@ -280,7 +281,7 @@ and obey following laws:
 
 ```js
 Apply<T> {
-  ap: (T<a => b>, T<a>) => T<b>
+  ap: <a, b>(T<a => b>, T<a>) => T<b>
 }
 ```
 
@@ -295,7 +296,7 @@ support `Functor` algebra for the same `T`, and obey following laws:
 
 ```js
 Applicative<T> {
-  of: (a) => T<a>
+  of: <a>(a) => T<a>
 }
 ```
 
@@ -316,7 +317,7 @@ support `Apply` algebra for the same `T`, and obey following laws:
 
 ```js
 Alt<T> {
-  alt: (T<a>, T<a>) => T<a>
+  alt: <a>(T<a>, T<a>) => T<a>
 }
 ```
 
@@ -332,7 +333,7 @@ support `Functor` algebra for the same `T`, and obey following laws:
 
 ```js
 Plus<T> {
-  zero: () => T<a>
+  zero: <a>() => T<a>
 }
 ```
 
@@ -359,7 +360,7 @@ and obey following laws:
 
 ```js
 Chain<T> {
-  chain: (a => T<b>, T<a>) => T<b>
+  chain: <a, b>(a => T<b>, T<a>) => T<b>
 }
 ```
 
@@ -378,7 +379,7 @@ support `Apply` algebra for the same `T`, and obey following laws:
 
 ```js
 ChainRec<T> {
-  chainRec: ((a => Next<a>, b => Done<b>, a) => T<Next<a> | Done<b>>, a) => T<b>
+  chainRec: <a, b>((a => Next<a>, b => Done<b>, a) => T<Next<a> | Done<b>>, a) => T<b>
 }
 ```
 
@@ -408,7 +409,7 @@ and obey following laws:
 
 ```js
 Foldable<T> {
-  reduce: ((a, b) => a, a, T<b>) => a
+  reduce: <a, b>((a, b) => a, a, T<b>) => a
 }
 ```
 
@@ -423,7 +424,7 @@ and obey following laws:
 
 ```js
 Extend<T> {
-  extend: (T<a> => b, T<a>) => T<b>
+  extend: <a, b>(T<a> => b, T<a>) => T<b>
 }
 ```
 
@@ -438,7 +439,7 @@ and obey following laws:
 
 ```js
 Comonad<T> {
-  extract: (T<a>) => a
+  extract: <a>(T<a>) => a
 }
 ```
 
@@ -460,7 +461,7 @@ than first argument must be a module that supports `Applicative` for `Array`.
 
 ```js
 Traversable<T> {
-  traverse: (Applicative<U>, a => U<b>, T<a>) => U<T<b>>
+  traverse: <U, a, b>(Applicative<U>, a => U<b>, T<a>) => U<T<b>>
 }
 ```
 
