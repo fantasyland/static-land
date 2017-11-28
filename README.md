@@ -47,6 +47,7 @@ const Addition = {
   - We have to pass around modules when we write generic code. In Fantasy Land
     most of generic code can be written using only methods, only if we need
     methods like `of` or `empty` we might need to pass the type representative.
+    ([This can be fixed!](https://github.com/rpominov/static-land/issues/45))
 
 ### How to add compatibility with Static Land to your library
 
