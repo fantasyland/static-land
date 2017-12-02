@@ -127,6 +127,9 @@ equivalent to that of the derivation (or derivations).
 * [Ord](#ord)
 * [Semigroup](#semigroup)
 * [Monoid](#monoid)
+* [Group](#group)
+* [Semigroupoid](#semigroupoid)
+* [Category](#category)
 * [Functor](#functor)
 * [Bifunctor](#bifunctor)
 * [Contravariant](#contravariant)
@@ -202,6 +205,49 @@ support `Semigroup` algebra for the same `T`, and obey following laws:
 
   1. Right identity: `M.concat(a, M.empty()) ≡ a`
   1. Left identity: `M.concat(M.empty(), a) ≡ a`
+
+
+### Group
+
+```js
+Group<T> {
+  invert: (T) => T
+}
+```
+
+Module must match the `Group` signature for some type `T`,
+support `Monoid` algebra for the same `T`, and obey following laws:
+
+  1. Right inverse: `G.concat(a, G.invert(a)) ≡ G.empty()`
+  1. Left inverse: `G.concat(G.invert(a), a) ≡ G.empty()`
+
+
+### Semigroupoid
+
+```js
+Semigroup<T> {
+  compose: <i, j, k>(T<i, j>, T<j, k>) => T<i, k>
+}
+```
+
+Module must match the `Semigroupoid` signature for some type `T`, and obey following laws:
+
+  1. Associativity: `S.compose(S.compose(a, b), c) ≡ S.compose(a, S.compose(b, c))`
+
+
+### Category
+
+```js
+Category<T> {
+  id: <i, j>() => T<i, j>
+}
+```
+
+Module must match the `Category` signature for some type `T`,
+support `Semigroupoid` algebra for the same `T`, and obey following laws:
+
+  1. Right identity: `M.compose(a, M.id()) ≡ a`
+  1. Left identity: `M.compose(M.id(), a) ≡ a`
 
 
 ### Functor
