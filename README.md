@@ -117,6 +117,29 @@ class MyType = {
 export {MyType}
 ```
 
+
+#### Example 3. Static Land module as ECMAScript modules
+
+```js
+// mytype.js
+
+// Static Land methods
+
+export function of(x) {
+  // ...
+}
+
+export function map(fn, value) {
+  // ...
+}
+```
+
+Import as
+
+```js
+import * as MyType from "./mytype" // MyType is now a Static Land module
+```
+
 ### Compatible libraries
 
 We have a list in the wiki. Feel free to add your library there.
