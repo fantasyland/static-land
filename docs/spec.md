@@ -519,7 +519,7 @@ Module must match the `Comonad` signature for some type `T`, support `Extend` al
 In the following signature `Applicative<U>` stands for a module that must support
 `Applicative` algebra for some type `U` that `a => U<b>` returns.
 For example, if the second argument of `traverse()` is a function that returns `Array`,
-than first argument must be a module that supports `Applicative` for `Array`.
+then the first argument must be a module that supports `Applicative` for `Array`.
 
 ```js
 Traversable<T> {
