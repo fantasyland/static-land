@@ -226,7 +226,7 @@ support `Monoid` algebra for the same `T`, and obey following laws:
 ### Semigroupoid
 
 ```js
-Semigroup<T> {
+Semigroupoid<T> {
   compose: <i, j, k>(T<i, j>, T<j, k>) => T<i, k>
 }
 ```
