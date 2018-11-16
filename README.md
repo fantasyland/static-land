@@ -87,7 +87,7 @@ export {SArray}
 #### Example 2. Static Land module as a Class
 
 ```js
-class MyType = {
+class MyType {
 
   constructor() {
     // ...
