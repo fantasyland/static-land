@@ -21,11 +21,11 @@ satisfies the Monoid algebra requirements:
 ```js
 const Addition = {
 
-  empty() {
+  empty: () => {
     return 0
   },
 
-  concat(a, b) {
+  concat: (a, b) => {
     return a + b
   },
 
