@@ -67,15 +67,15 @@ constructors if desired. The only requirements are:
 ```js
 const SArray = {
 
-  of(x) {
+  of: (x) => {
     return [x]
   },
 
-  map(fn, arr) {
+  map: (fn, arr) => {
     return arr.map(fn)
   },
 
-  chain(fn, arr) {
+  chain: (fn, arr) => {
     // ...
   },
 
