@@ -99,7 +99,7 @@ For example:
  - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
 
 Note that these examples are not universal, in some cases different
-definitions of equivalense for that types might be more appropriate.
+definitions of equivalence for your types might be more appropriate.
 It depends on which exact abstractions you choose to use in a program.
 
 We use `≡` symbol in laws to denote equivalence.
