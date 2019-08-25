@@ -108,8 +108,7 @@ We use `≡` symbol in laws to denote equivalence.
 ## Parametricity
 
 All methods' implementations should only use type information about arguments that is known from the signatures.
-It's not allowed to inspect arguments or values that they produce
-or contain to get more information about their types. In other words methods
+Inspecting arguments or values that they produce or contain to get more information about their types is not allowed. In other words methods  
 should be [parametrically polymorphic](https://en.wikipedia.org/wiki/Parametric_polymorphism).
 
 
